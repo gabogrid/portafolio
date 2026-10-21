@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Natural® — Case Study · Francisco Gabriel Riquelme Olmedo</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#1a1a18;
+  --gray:#5c5850;
+  --line:#e4e0d8;
+  --paper:#fdfcfa;
+  --accent:#28BCB2;
+  --accent2:#95D600;
+  --serif:'Fraunces',serif;
+  --sans:'Inter',sans-serif;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--paper);color:var(--ink);line-height:1.7;font-size:17px}
+.wrap{max-width:860px;margin:0 auto;padding:0 2rem}
+.wrap-wide{max-width:1080px;margin:0 auto;padding:0 2rem}
+img{max-width:100%;display:block;border-radius:4px}
+p{color:var(--gray);max-width:64ch}
+h1,h2,h3{font-family:var(--serif);color:var(--ink);line-height:1.15;font-weight:500}
+a{color:var(--ink)}
+
+/* topbar */
+.topbar{position:sticky;top:0;z-index:10;background:rgba(253,252,250,0.9);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.topbar-inner{max-width:1080px;margin:0 auto;padding:1.1rem 2rem;display:flex;justify-content:space-between;align-items:center}
+.topbar-name{font-family:var(--serif);font-size:1rem;font-weight:500}
+.topbar-back{font-size:0.85rem;color:var(--gray);text-decoration:none;border-bottom:1px solid var(--line)}
+
+/* hero */
+.cs-hero{padding:5rem 0 3rem}
+.eyebrow{display:flex;gap:0.6rem;flex-wrap:wrap;margin-bottom:1.75rem}
+.pill{font-size:0.72rem;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;padding:0.3rem 0.8rem;border:1px solid var(--line);border-radius:20px;color:var(--gray)}
+.cs-hero h1{font-size:clamp(2rem,4.2vw,3.1rem);letter-spacing:-0.01em;margin-bottom:2.5rem;max-width:26ch}
+.meta-row{display:flex;flex-direction:column;gap:1rem;padding:2rem 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.meta-item{display:flex;gap:2rem;align-items:baseline}
+.meta-label{width:130px;flex-shrink:0}
+.meta-label{font-size:0.68rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--gray);margin-bottom:0.35rem}
+.meta-value{font-size:0.92rem;font-weight:500}
+.hero-shot{margin-top:3rem;border:1px solid var(--line);border-radius:8px;overflow:hidden;box-shadow:0 30px 60px -20px rgba(0,0,0,0.15)}
+
+/* sections */
+.section{padding:4.5rem 0}
+.section-alt{background:#f6f4ef}
+.kicker{font-size:0.72rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--accent);font-weight:600;margin-bottom:0.9rem}
+.section h2{font-size:clamp(1.5rem,2.6vw,2rem);margin-bottom:1.5rem;max-width:20ch}
+.lead{font-size:1.15rem;color:var(--ink);max-width:56ch;margin-bottom:1.25rem;font-weight:400}
+.section p + p{margin-top:1.1rem}
+.figure{margin:2.5rem 0}
+.figure img{border:1px solid var(--line)}
+.figure-cap{font-size:0.82rem;color:var(--gray);margin-top:0.75rem;font-style:italic}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start}
+.qa{border-left:2px solid var(--accent);padding-left:1.5rem;margin:1.75rem 0}
+.qa-q{font-family:var(--serif);font-size:1.15rem;margin-bottom:0.4rem}
+.qa-a{color:var(--gray);font-size:0.95rem}
+
+/* audiencia cards */
+.audiencia-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin:2.25rem 0}
+.audiencia-card{background:white;border:1px solid var(--line);border-radius:10px;padding:1.75rem}
+.audiencia-tag{font-size:0.68rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--accent);font-weight:600;margin-bottom:0.6rem}
+.audiencia-card h3{font-size:1.2rem;margin-bottom:1rem}
+.audiencia-list{list-style:none;display:flex;flex-direction:column;gap:0.65rem}
+.audiencia-list li{font-size:0.9rem;color:var(--gray);padding-bottom:0.65rem;border-bottom:1px solid var(--line)}
+.audiencia-list li:last-child{border-bottom:none;padding-bottom:0}
+
+/* pull quote */
+.pullquote{font-family:var(--serif);font-size:clamp(1.4rem,2.6vw,1.9rem);line-height:1.4;color:var(--ink);max-width:34ch;margin:2.5rem auto;text-align:center;font-weight:500}
+.pullquote span{color:var(--accent)}
+
+/* diagrams */
+.diagram-wrap{background:white;border:1px solid var(--line);border-radius:10px;padding:2rem;margin:2rem 0;overflow-x:auto}
+
+/* wireframe compare */
+.wf-compare{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin:2rem 0}
+.wf-card{border:1px solid var(--line);border-radius:8px;overflow:hidden;background:white}
+.wf-card-label{padding:0.85rem 1.1rem;border-bottom:1px solid var(--line);font-size:0.78rem;font-weight:600;text-transform:uppercase;letter-spacing:0.04em}
+.wf-card.before .wf-card-label{color:#b5654a;background:#fbf1ec}
+.wf-card.after .wf-card-label{color:#1a8a7f;background:#eaf8f6}
+.wf-body{padding:1.5rem}
+.wf-box{border-radius:6px;padding:0.9rem;margin-bottom:0.6rem;font-size:0.78rem;text-align:center;color:var(--gray)}
+.wf-box.big{background:#ede8dc;padding:2.2rem 0.9rem;font-weight:600;color:var(--ink)}
+.wf-box.accent{background:#e8f9f8;color:#1a8a7f;font-weight:600}
+.wf-box.small-row{display:flex;gap:0.5rem}
+.wf-box.small-row div{flex:1;background:#ede8dc;border-radius:6px;padding:0.6rem;font-size:0.7rem}
+
+/* results grid */
+.result-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.5rem;margin:2.5rem 0}
+.result-item{border-top:2px solid var(--ink);padding-top:1rem}
+.result-num{font-family:var(--serif);font-size:2rem;display:flex;align-items:center;gap:0.5rem}
+.result-icon{height:2rem;width:auto;display:inline-block}
+.result-label{font-size:0.85rem;color:var(--gray);margin-top:0.3rem}
+.shots-grid{display:grid;grid-template-columns:2fr 1fr;gap:1.5rem;margin-top:2.5rem}
+.shots-grid .tall{grid-row:span 2}
+
+footer.cs-footer{padding:5rem 0 4rem;text-align:center;border-top:1px solid var(--line)}
+footer.cs-footer h2{font-size:clamp(1.6rem,3vw,2.2rem);margin-bottom:1rem}
+.cs-footer-links{display:flex;gap:1.5rem;justify-content:center;margin-top:2rem;flex-wrap:wrap}
+.cs-footer-links a{font-size:0.9rem;text-decoration:none;border-bottom:1px solid var(--ink);padding-bottom:2px}
+
+@media(max-width:768px){
+  .meta-item{flex-direction:column;gap:0.3rem}
+  .two-col{grid-template-columns:1fr}
+  .wf-compare{grid-template-columns:1fr}
+  .audiencia-grid{grid-template-columns:1fr}
+  .result-grid{grid-template-columns:1fr}
+  .shots-grid{grid-template-columns:1fr}
+  .shots-grid .tall{grid-row:auto}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <span class="topbar-name">Francisco Gabriel Riquelme Olmedo</span>
+    <a href="../index.html" class="topbar-back">← Portafolio</a>
+  </div>
+</div>
+
+<!-- HERO -->
+<header class="cs-hero wrap">
+  <div class="eyebrow">
+    <span class="pill">B2C</span>
+    <span class="pill">Web Design</span>
+    <span class="pill">UX/UI</span>
+    <span class="pill">3 semanas</span>
+  </div>
+  <h1>Reemplacé una presentación editorial por un sitio que cualquier empresa puede consultar con claridad</h1>
+  <p class="lead" style="margin-top:-1.5rem;margin-bottom:2.5rem">Eliminando la fricción de descarga y aumentando las probabilidades de que el mensaje llegue y se lea.</p>
+  <div class="meta-row">
+    <div class="meta-item"><div class="meta-label">Mi rol</div><div class="meta-value">Product Designer / UX·UI Designer</div></div>
+    <div class="meta-item"><div class="meta-label">Alcance</div><div class="meta-value">Arquitectura de información, flujo de navegación, wireframes, diseño de interfaz, responsive y desarrollo web</div></div>
+    <div class="meta-item"><div class="meta-label">Herramientas</div><div class="meta-value">Figma · Claude · ChatGPT · Visual Studio Code</div></div>
+    <div class="meta-item"><div class="meta-label">Tipo de proyecto</div><div class="meta-value">Proyecto conceptual desarrollado desde cero</div></div>
+  </div>
+  <div class="hero-shot"><img src="img/hero.png" alt="Hero del sitio web de Natural®"></div>
+</header>
+
+<!-- 01 COMO EMPEZO -->
+<section class="section wrap">
+  <div class="kicker">01</div>
+  <h2>De un servicio que sucede en la oficina a una experiencia web clara</h2>
+  <p class="lead">Natural® es un servicio de alimentación que acerca comida, bebidas y snacks directamente a las personas dentro de su lugar de trabajo — y no contaba con una sola página en internet.</p>
+  <p>Un carrito recorre oficinas en Ciudad de México ofreciendo tortas, fruta, botanas y bebidas para que los colaboradores no tengan que salir a la calle en su jornada. Toda su comunicación vivía dentro de una presentación de 14 páginas que se enviaba por WhatsApp o correo, esperando que alguien tuviera el tiempo de abrirla, descargarla y leerla completa.</p>
+  <p>El reto fue construir, desde cero, una experiencia web capaz de explicar con claridad qué es Natural®, cómo funciona y qué ofrece — tanto a los colaboradores que reciben el servicio como a las empresas que lo contratan. A partir de la información, la propuesta de valor y los materiales de comunicación existentes, desarrollé una propuesta conceptual de sitio web que trasladara la esencia de Natural® al entorno digital.</p>
+</section>
+
+<!-- 02 HALLAZGO -->
+<section class="section section-alt">
+  <div class="wrap">
+    <div class="kicker">02</div>
+    <h2>El PDF no era el problema — era la barrera</h2>
+    <p class="lead">Antes de diseñar una sola pantalla me hice tres preguntas que definieron todo lo que vino después.</p>
+    <div class="qa">
+      <div class="qa-q">¿Quién decide contratar a Natural®?</div>
+      <div class="qa-a">No es quien toma el desayuno. Es el responsable de RH, de facilities, o el dueño de una empresa mediana — alguien que recibe decenas de mensajes al día y no tiene tiempo de descargar nada.</div>
+    </div>
+    <div class="qa">
+      <div class="qa-q">¿Qué necesita saber ese responsable de RH para animarse a llamar?</div>
+      <div class="qa-a">Qué es el servicio, cómo funciona la logística, qué productos ofrece y cómo contactar — sin fricciones, desde el celular, en el tiempo que dura un elevador.</div>
+    </div>
+    <div class="qa">
+      <div class="qa-q">¿Qué lo frenaba antes de llegar a esa llamada?</div>
+      <div class="qa-a">El PDF exigía un paso extra que casi nadie daba. La conversión más importante de todo el proyecto no era "vender el servicio" — era lograr que alguien abriera el link.</div>
+    </div>
+    <p style="margin-top:1.75rem">Con eso decidido, una cosa quedó clara desde el inicio: el sitio sería 100% informativo, sin carrito de compras ni sistema de pedidos. Natural® vende con presencia física dentro de las instalaciones — el sitio solo tenía que conseguir la llamada.</p>
+
+    <p style="margin-top:2.5rem"><strong>Pero el responsable de RH no es la única persona que llega a este sitio.</strong> La experiencia tenía que responder a dos tipos de visitante con preguntas distintas en la cabeza: el colaborador que va a recibir el servicio todos los días, y la empresa que necesita justificar la decisión de contratarlo. Una misma página, dos conversaciones.</p>
+
+    <div class="audiencia-grid">
+      <div class="audiencia-card">
+        <div class="audiencia-tag">Colaborador · recibe el servicio</div>
+        <h3>Necesita saber</h3>
+        <ul class="audiencia-list">
+          <li>¿Qué es Natural®?</li>
+          <li>¿Cómo funciona el servicio?</li>
+          <li>¿Qué productos ofrece?</li>
+          <li>¿Dónde puedo obtener más información?</li>
+        </ul>
+      </div>
+      <div class="audiencia-card">
+        <div class="audiencia-tag">Empresa · otorga la facilidad</div>
+        <h3>Necesita saber</h3>
+        <ul class="audiencia-list">
+          <li>¿En qué consiste el servicio?</li>
+          <li>¿Qué beneficios puede aportar?</li>
+          <li>¿Cómo funciona dentro de una empresa?</li>
+          <li>¿Cómo puedo solicitar información?</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 03 ESTRUCTURA / WIREFRAMES -->
+<section class="section wrap">
+  <div class="kicker">03</div>
+  <h2>Antes del color, definí qué necesitaba cada pantalla</h2>
+  <p class="lead">Antes de trabajar con imágenes, color y tipografía, definí la jerarquía del contenido.</p>
+  <p>Los wireframes en baja resolución me permitieron comprobar la distribución de la información, establecer prioridades y definir la posición de los principales llamados a la acción. En esta etapa el objetivo no era resolver la estética, sino entender cómo debía funcionar cada pantalla y cómo se relacionaban unas con otras — qué necesitaba estar arriba del scroll, qué podía esperar, y en qué punto exacto tenía sentido pedirle al visitante que escribiera por WhatsApp.</p>
+  <div class="figure">
+    <img src="img/wireframes.png" alt="Wireframe de baja resolución de Natural®">
+    <div class="figure-cap">Wireframes de baja resolución — jerarquía de contenido antes de trabajar la interfaz visual.</div>
+  </div>
+</section>
+
+<!-- 04 SISTEMA VISUAL -->
+<section class="section section-alt">
+  <div class="wrap">
+    <div class="kicker">04</div>
+    <h2>Un mismo lenguaje visual para toda la experiencia</h2>
+    <p class="lead">La interfaz necesitaba mantener coherencia a lo largo de toda la experiencia.</p>
+    <p>Diseñé en Figma el Design System completo del proyecto — componentes, tipografía, paleta y patrones de composición — y a partir de ahí construí la interfaz en alta fidelidad de cada sección: navegación, botones, tarjetas y bloques de contenido reutilizables para mantener consistencia entre las diferentes secciones y facilitar la evolución de la propuesta. Más que diseñar cada pantalla de manera independiente, busqué que todas formaran parte de un mismo sistema.</p>
+    <div class="diagram-wrap">
+      <svg viewBox="0 0 1000 460" xmlns="http://www.w3.org/2000/svg" font-family="Inter,sans-serif">
+<text x="0" y="24" font-size="11" font-weight="700" letter-spacing="1.5" fill="#9a9484">TIPOGRAFÍA</text>
+<text x="0" y="70" font-family="Quicksand,sans-serif" font-size="34" font-weight="600" fill="#232220">Quicksand SemiBold</text>
+<text x="0" y="100" font-family="Quicksand,sans-serif" font-size="16" font-weight="500" fill="#232220">Quicksand Medium — subtítulos</text>
+<text x="0" y="126" font-family="Open Sans,sans-serif" font-size="14" fill="#4c473e">Open Sans Regular — párrafos y texto de apoyo</text>
+<line x1="0" y1="150" x2="1000" y2="150" stroke="#e4e0d8"/>
+<text x="0" y="182" font-size="11" font-weight="700" letter-spacing="1.5" fill="#9a9484">PALETA</text>
+<rect x="0" y="196" width="150" height="56" rx="6" fill="#28BCB2" stroke="#e4e0d8"/>
+<text x="0" y="272" font-size="11" fill="#5c5850">Turquesa</text>
+<text x="0" y="286" font-size="10" fill="#9a9484">#28BCB2</text>
+<rect x="168" y="196" width="150" height="56" rx="6" fill="#95D600" stroke="#e4e0d8"/>
+<text x="168" y="272" font-size="11" fill="#5c5850">Verde lima</text>
+<text x="168" y="286" font-size="10" fill="#9a9484">#95D600</text>
+<rect x="336" y="196" width="150" height="56" rx="6" fill="#232220" stroke="#e4e0d8"/>
+<text x="336" y="272" font-size="11" fill="#5c5850">Tinta</text>
+<text x="336" y="286" font-size="10" fill="#9a9484">#232220</text>
+<rect x="504" y="196" width="150" height="56" rx="6" fill="#4c473e" stroke="#e4e0d8"/>
+<text x="504" y="272" font-size="11" fill="#5c5850">Texto</text>
+<text x="504" y="286" font-size="10" fill="#9a9484">#4c473e</text>
+<rect x="672" y="196" width="150" height="56" rx="6" fill="#f5faf9" stroke="#e4e0d8"/>
+<text x="672" y="272" font-size="11" fill="#5c5850">Fondo</text>
+<text x="672" y="286" font-size="10" fill="#9a9484">#f5faf9</text>
+<rect x="840" y="196" width="150" height="56" rx="6" fill="#e8f9f8" stroke="#e4e0d8"/>
+<text x="840" y="272" font-size="11" fill="#5c5850">Turquesa light</text>
+<text x="840" y="286" font-size="10" fill="#9a9484">#e8f9f8</text>
+<line x1="0" y1="310" x2="1000" y2="310" stroke="#e4e0d8"/>
+<text x="0" y="342" font-size="11" font-weight="700" letter-spacing="1.5" fill="#9a9484">COMPONENTES</text>
+<rect x="0" y="356" width="150" height="40" rx="20" fill="#28BCB2"/>
+<text x="75" y="380" text-anchor="middle" font-size="12" font-weight="600" fill="white">Contáctanos</text>
+<rect x="166" y="356" width="150" height="40" rx="20" fill="none" stroke="#28BCB2" stroke-width="2"/>
+<text x="241" y="380" text-anchor="middle" font-size="12" font-weight="600" fill="#28BCB2">Ver más</text>
+<rect x="332" y="350" width="190" height="52" rx="8" fill="white" stroke="#e4e0d8"/>
+<circle cx="356" cy="376" r="14" fill="#e8f9f8"/>
+<text x="380" y="372" font-size="11" font-weight="600" fill="#232220">Card de servicio</text>
+<text x="380" y="386" font-size="9.5" fill="#9a9484">Ícono + texto de apoyo</text>
+<rect x="538" y="356" width="130" height="40" rx="20" fill="none" stroke="#e4e0d8" stroke-width="1.5"/>
+<text x="603" y="380" text-anchor="middle" font-size="11.5" fill="#4c473e">Tab inactivo</text>
+<rect x="684" y="356" width="130" height="40" rx="20" fill="#28BCB2"/>
+<text x="749" y="380" text-anchor="middle" font-size="11.5" font-weight="600" fill="white">Tab activo</text>
+<rect x="830" y="356" width="170" height="40" rx="8" fill="white" stroke="#95D600" stroke-width="1.5"/>
+<circle cx="850" cy="376" r="8" fill="none" stroke="#95D600" stroke-width="1.5"/>
+<text x="915" y="380" text-anchor="middle" font-size="10.5" fill="#232220">Beneficio confirmado</text>
+<line x1="0" y1="422" x2="1000" y2="422" stroke="#e4e0d8"/>
+<text x="0" y="450" font-size="11" font-weight="700" letter-spacing="1.5" fill="#9a9484">PATRÓN DE COMPOSICIÓN</text>
+<text x="220" y="450" font-size="11.5" fill="#5c5850">Pleca + título + descripción → repetido como firma visual en cada sección</text>
+</svg>
+    </div>
+  </div>
+</section>
+
+<!-- 05 ARQUITECTURA -->
+<section class="section wrap-wide">
+  <div class="wrap">
+    <div class="kicker">05</div>
+    <h2>Diseñando un camino de una sola vía</h2>
+    <p class="lead">Una presentación impresa se lee de principio a fin. Una página web se escanea. Ese cambio de paradigma definió toda la arquitectura.</p>
+    <p>Elegí una sola página con scroll continuo, no un sitio de múltiples secciones, por tres razones concretas: el responsable de RH llega desde WhatsApp en su celular, así que cada clic extra es una oportunidad de que abandone; el contenido es lineal y persuasivo — sigue una narrativa de problema → solución → prueba → acción; y Natural® no tiene un catálogo lo bastante complejo como para justificar navegación profunda.</p>
+  </div>
+  <div class="diagram-wrap">
+    <svg viewBox="0 0 975 220" xmlns="http://www.w3.org/2000/svg" font-family="Inter,sans-serif">
+<rect x="377.5" y="16" width="220" height="54" rx="6" fill="#1a1a18"/>
+<text x="487.5" y="48.0" text-anchor="middle" font-size="13" font-weight="600" fill="white">Natural® — Single Page</text>
+<line x1="487.5" y1="70" x2="487.5" y2="100" stroke="#c9c4b8" stroke-width="1.5"/>
+<line x1="80.0" y1="100" x2="895.0" y2="100" stroke="#c9c4b8" stroke-width="1.5"/>
+<line x1="80.0" y1="100" x2="80.0" y2="130" stroke="#c9c4b8" stroke-width="1.5"/>
+<rect x="10" y="130" width="140" height="64" rx="6" fill="#28BCB2" stroke="#28BCB2" stroke-width="1.5"/>
+<text x="80.0" y="154" text-anchor="middle" font-size="10" letter-spacing="1" fill="rgba(255,255,255,0.7)">01</text>
+<text x="80.0" y="172" text-anchor="middle" font-size="12.5" font-weight="600" fill="white">Hero</text>
+<line x1="243.0" y1="100" x2="243.0" y2="130" stroke="#c9c4b8" stroke-width="1.5"/>
+<rect x="173" y="130" width="140" height="64" rx="6" fill="white" stroke="#d8d3c6" stroke-width="1.5"/>
+<text x="243.0" y="154" text-anchor="middle" font-size="10" letter-spacing="1" fill="#9a9484">02</text>
+<text x="243.0" y="172" text-anchor="middle" font-size="12.5" font-weight="600" fill="#1a1a18">Servicio</text>
+<line x1="406.0" y1="100" x2="406.0" y2="130" stroke="#c9c4b8" stroke-width="1.5"/>
+<rect x="336" y="130" width="140" height="64" rx="6" fill="white" stroke="#d8d3c6" stroke-width="1.5"/>
+<text x="406.0" y="154" text-anchor="middle" font-size="10" letter-spacing="1" fill="#9a9484">03</text>
+<text x="406.0" y="172" text-anchor="middle" font-size="12.5" font-weight="600" fill="#1a1a18">Cómo funciona</text>
+<line x1="569.0" y1="100" x2="569.0" y2="130" stroke="#c9c4b8" stroke-width="1.5"/>
+<rect x="499" y="130" width="140" height="64" rx="6" fill="white" stroke="#d8d3c6" stroke-width="1.5"/>
+<text x="569.0" y="154" text-anchor="middle" font-size="10" letter-spacing="1" fill="#9a9484">04</text>
+<text x="569.0" y="172" text-anchor="middle" font-size="12.5" font-weight="600" fill="#1a1a18">Productos</text>
+<line x1="732.0" y1="100" x2="732.0" y2="130" stroke="#c9c4b8" stroke-width="1.5"/>
+<rect x="662" y="130" width="140" height="64" rx="6" fill="white" stroke="#d8d3c6" stroke-width="1.5"/>
+<text x="732.0" y="154" text-anchor="middle" font-size="10" letter-spacing="1" fill="#9a9484">05</text>
+<text x="732.0" y="172" text-anchor="middle" font-size="12.5" font-weight="600" fill="#1a1a18">Por qué Natural®</text>
+<line x1="895.0" y1="100" x2="895.0" y2="130" stroke="#c9c4b8" stroke-width="1.5"/>
+<rect x="825" y="130" width="140" height="64" rx="6" fill="white" stroke="#d8d3c6" stroke-width="1.5"/>
+<text x="895.0" y="154" text-anchor="middle" font-size="10" letter-spacing="1" fill="#9a9484">06</text>
+<text x="895.0" y="172" text-anchor="middle" font-size="12.5" font-weight="600" fill="#1a1a18">Contacto</text>
+</svg>
+  </div>
+  <div class="wrap">
+    <p>Cada sección de esa página responde, en orden, la siguiente pregunta que el responsable de RH se está haciendo en su cabeza: <em>¿qué es esto? → ¿puedo confiar en ellos? → ¿cómo funcionaría en mi empresa? → ¿qué ofrecen exactamente? → ¿vale la pena? → ¿cómo los contacto?</em> Ninguna sección existe porque "se veía bien" — cada una está ahí porque cierra una duda específica antes de que se convierta en un motivo para cerrar la pestaña.</p>
+  </div>
+</section>
+
+<!-- 04 FLUJO DE USUARIO -->
+<section class="section section-alt">
+  <div class="wrap-wide">
+    <div class="wrap">
+      <div class="kicker">06</div>
+      <h2>Diseñé para el momento entre dos reuniones</h2>
+      <p class="lead">El escenario más común no es alguien sentado frente a su computadora comparando proveedores.</p>
+    </div>
+    <div class="diagram-wrap">
+      <svg viewBox="0 0 1130 340" xmlns="http://www.w3.org/2000/svg" font-family="Inter,sans-serif">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a9484"/></marker></defs>
+<rect x="10" y="30" width="240" height="110" rx="10" fill="white" stroke="#d8d3c6" stroke-width="1.5"/>
+<text x="130.0" y="79.0" text-anchor="middle" font-size="19" font-weight="600" fill="#1a1a18">Recibe el link</text>
+<text x="130.0" y="105.0" text-anchor="middle" font-size="19" font-weight="600" fill="#1a1a18">por WhatsApp</text>
+<text x="28" y="56" font-size="12" font-weight="700" fill="#c9c4b8">01</text>
+<rect x="300" y="30" width="240" height="110" rx="10" fill="white" stroke="#d8d3c6" stroke-width="1.5"/>
+<text x="420.0" y="79.0" text-anchor="middle" font-size="19" font-weight="600" fill="#1a1a18">Abre desde</text>
+<text x="420.0" y="105.0" text-anchor="middle" font-size="19" font-weight="600" fill="#1a1a18">su celular</text>
+<text x="318" y="56" font-size="12" font-weight="700" fill="#c9c4b8">02</text>
+<rect x="590" y="30" width="240" height="110" rx="10" fill="white" stroke="#d8d3c6" stroke-width="1.5"/>
+<text x="710.0" y="79.0" text-anchor="middle" font-size="19" font-weight="600" fill="#1a1a18">Escanea</text>
+<text x="710.0" y="105.0" text-anchor="middle" font-size="19" font-weight="600" fill="#1a1a18">el Hero</text>
+<text x="608" y="56" font-size="12" font-weight="700" fill="#c9c4b8">03</text>
+<rect x="880" y="30" width="240" height="110" rx="10" fill="white" stroke="#d8d3c6" stroke-width="1.5"/>
+<text x="1000.0" y="79.0" text-anchor="middle" font-size="19" font-weight="600" fill="#1a1a18">Revisa el</text>
+<text x="1000.0" y="105.0" text-anchor="middle" font-size="19" font-weight="600" fill="#1a1a18">servicio</text>
+<text x="898" y="56" font-size="12" font-weight="700" fill="#c9c4b8">04</text>
+<rect x="880" y="200" width="240" height="110" rx="10" fill="white" stroke="#d8d3c6" stroke-width="1.5"/>
+<text x="1000.0" y="249.0" text-anchor="middle" font-size="19" font-weight="600" fill="#1a1a18">Ve cómo</text>
+<text x="1000.0" y="275.0" text-anchor="middle" font-size="19" font-weight="600" fill="#1a1a18">funciona</text>
+<text x="898" y="226" font-size="12" font-weight="700" fill="#c9c4b8">05</text>
+<rect x="590" y="200" width="240" height="110" rx="10" fill="white" stroke="#d8d3c6" stroke-width="1.5"/>
+<text x="710.0" y="249.0" text-anchor="middle" font-size="19" font-weight="600" fill="#1a1a18">Explora</text>
+<text x="710.0" y="275.0" text-anchor="middle" font-size="19" font-weight="600" fill="#1a1a18">productos</text>
+<text x="608" y="226" font-size="12" font-weight="700" fill="#c9c4b8">06</text>
+<rect x="300" y="200" width="240" height="110" rx="10" fill="white" stroke="#d8d3c6" stroke-width="1.5"/>
+<text x="420.0" y="249.0" text-anchor="middle" font-size="19" font-weight="600" fill="#1a1a18">Lee los</text>
+<text x="420.0" y="275.0" text-anchor="middle" font-size="19" font-weight="600" fill="#1a1a18">beneficios</text>
+<text x="318" y="226" font-size="12" font-weight="700" fill="#c9c4b8">07</text>
+<rect x="10" y="200" width="240" height="110" rx="10" fill="#1a1a18" stroke="#1a1a18" stroke-width="1.5"/>
+<text x="130.0" y="249.0" text-anchor="middle" font-size="19" font-weight="600" fill="white">Escribe por</text>
+<text x="130.0" y="275.0" text-anchor="middle" font-size="19" font-weight="600" fill="white">WhatsApp</text>
+<text x="28" y="226" font-size="12" font-weight="700" fill="#c9c4b8">08</text>
+<line x1="254" y1="85.0" x2="292" y2="85.0" stroke="#9a9484" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="544" y1="85.0" x2="582" y2="85.0" stroke="#9a9484" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="834" y1="85.0" x2="872" y2="85.0" stroke="#9a9484" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="1000.0" y1="144" x2="1000.0" y2="192" stroke="#9a9484" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="876" y1="255.0" x2="838" y2="255.0" stroke="#9a9484" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="586" y1="255.0" x2="548" y2="255.0" stroke="#9a9484" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="296" y1="255.0" x2="258" y2="255.0" stroke="#9a9484" stroke-width="2" marker-end="url(#arrow)"/>
+</svg>
+    </div>
+    <div class="wrap">
+      <p>Ese contexto de uso — celular, poco tiempo, atención dividida — es la razón por la que el botón de WhatsApp aparece desde el primer scroll y no solo al final: algunos responsables de RH ya saben lo que buscan y no necesitan leer todo el sitio para escribir. Para quien sí lee todo, el mismo botón reaparece al cierre, como consecuencia natural de la narrativa, no como una repetición forzada.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 05 PUNTO DE INFLEXION -->
+<section class="section wrap">
+  <div class="kicker">07</div>
+  <h2>El primer Hero vendía comida. El bueno vendía tiempo.</h2>
+  <p class="lead">Mi primer planteamiento ponía el foco donde parecía obvio: los alimentos preparados, la fruta, las botanas.</p>
+  <p>Era apetitoso. También era el error. Un responsable de facilities no contrata Natural® porque la comida se vea bien en una foto — la contrata porque resuelve un problema logístico y de bienestar dentro de su empresa. Hablarle de comida en el primer scroll era hablarle al colaborador equivocado.</p>
+
+  <div class="wf-compare">
+    <div class="wf-card before">
+      <div class="wf-card-label">Primer intento — enfocado en producto</div>
+      <div class="wf-body">
+        <div class="wf-box big">🍉 🥪 🍮<br>Fotos de producto protagonistas</div>
+        <div class="wf-box">"Las mejores botanas para tu oficina"</div>
+        <div class="wf-box">Botón: Ver menú</div>
+      </div>
+    </div>
+    <div class="wf-card after">
+      <div class="wf-card-label">Versión final — enfocada en beneficio</div>
+      <div class="wf-body">
+        <div class="wf-box accent">"Bienestar y sabor, sin salir de tu empresa"</div>
+        <div class="wf-box">Texto: quiénes somos + garantía de calidad</div>
+        <div class="wf-box small-row"><div>30+ productos</div><div>CDMX</div></div>
+        <div class="wf-box">Botón: Hablar con Natural®</div>
+      </div>
+    </div>
+  </div>
+
+  <p>Ese cambio de perspectiva — del producto al beneficio — fue el punto de inflexión de todo el proyecto. Los productos siguen ahí, con su propia sección más adelante.</p>
+</section>
+
+<!-- 06 RESULTADO -->
+<section class="section section-alt">
+  <div class="wrap-wide">
+    <div class="wrap">
+      <div class="kicker">08</div>
+      <h2>El resultado: un vendedor silencioso, disponible 24/7</h2>
+    </div>
+    <div class="wrap">
+      <div class="result-grid">
+        <div class="result-item"><div class="result-num"><img src="img/book2.svg" alt="" class="result-icon"> → 1</div><div class="result-label">Diseño Editorial reemplazadas por un solo link</div></div>
+        <div class="result-item"><div class="result-num">0</div><div class="result-label">Pasos de descarga — abre directo desde WhatsApp</div></div>
+        <div class="result-item"><div class="result-num">3</div><div class="result-label">Semanas de investigación a entrega</div></div>
+      </div>
+    </div>
+    <div class="shots-grid">
+      <div class="tall figure"><img src="img/productos.png" alt="Sección de productos con tabs y carrusel"></div>
+      <!-- <div class="figure"><img src="img/beneficio_Laptop.png" alt="Sección de beneficios para colaboradores y empresa"></div> -->
+      <div class="figure"><img src="img/mobile_hero2.png" alt="Vista móvil del Hero"></div>
+    </div>
+    <p style="margin-top:2rem">La propuesta es responsiva para desktop, tablet y móvil. El CTA principal conecta directo con WhatsApp — el canal de contacto real del negocio. En un escenario de implementación, Natural® tendría por primera vez una presencia digital que puede compartirse con un solo link y que sigue comunicando incluso cuando nadie está escribiendo desde el negocio.</p>
+  </div>
+</section>
+
+<!-- 07 APRENDIZAJE -->
+<section class="section wrap">
+  <div class="kicker">09</div>
+  <h2>Lo que aprendí</h2>
+  <p>Natural® necesitaba un medio para comunicar de manera rápida y convertir la curiosidad en una llamada. Diseñar para un negocio pequeño con ambiciones grandes exige el mismo rigor que un producto digital complejo, solo que aplicado a un problema mucho más concreto.</p>
+  <p>También confirmé algo que ya sospechaba: la arquitectura de información es diseño. Antes de elegir un color o una tipografía, entender quién lee, qué busca y qué lo frena sigue siendo la decisión más importante de todo el proyecto.</p>
+  <p>Y, sobre todo, quedó claro que Natural® es una propuesta de doble beneficio: una solución que favorece tanto a los colaboradores que reciben el servicio como a la empresa que lo otorga — ese equilibrio fue, en el fondo, el hilo conductor de todo el proyecto.</p>
+</section>
+
+<footer class="cs-footer wrap">
+  <div class="kicker">Siguiente proyecto</div>
+  <h2>¿Vemos cómo aplico esto mismo a tu producto?</h2>
+  <div class="cs-footer-links">
+    <a href="mailto:fgaboriq73@yahoo.com">Email</a>
+    <a href="https://wa.me/525526668770">WhatsApp</a>
+    <a href="https://linkedin.com/in/francisco-gabriel-riquelme-olmedo">LinkedIn</a>
+  </div>
+</footer>
+
+</body>
+</html>

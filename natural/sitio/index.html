@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/x-icon" href="img/favicon.ico">
+<title>Natural® — Bienestar y sabor en tu empresa</title>
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Open+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --turquesa:#28BCB2;
+  --turquesa-light:#e8f9f8;
+  --turquesa-mid:rgba(40,188,178,0.12);
+  --verde:#95D600;
+  --verde-light:rgba(149,214,0,0.15);
+  --tinta:#232220;
+  --texto:#4c473e;
+  --fondo:#f5faf9;
+  --blanco:#ffffff;
+  --line:rgba(40,188,178,0.2);
+  --sub:1.1rem;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Open Sans',sans-serif;background:var(--fondo);color:var(--texto);line-height:1.7;overflow-x:hidden}
+h1,h2,h3,h4{font-family:'Quicksand',sans-serif;color:var(--tinta);line-height:1.25}
+h1{font-weight:600}
+h2{font-weight:600}
+h3{font-weight:500;font-size:var(--sub)}
+p{font-family:'Open Sans',sans-serif;font-weight:400;color:var(--texto);max-width:65ch}
+img{max-width:100%;display:block}
+.pleca{width:48px;height:3px;border-radius:2px;background:linear-gradient(90deg,var(--turquesa),var(--verde));margin-bottom:1rem}
+.section{padding:5rem 2rem}
+.section-inner{max-width:1200px;margin:0 auto}
+.section-title{font-size:clamp(1.8rem,3vw,2.4rem);color:var(--tinta);margin-bottom:0.75rem}
+.section-desc{font-size:0.95rem;color:var(--texto);max-width:560px;line-height:1.85;margin-bottom:1.5rem}
+.accent{color:var(--turquesa)}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity 0.6s,transform 0.6s}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(245,250,249,0.96);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);transition:box-shadow 0.3s}
+nav.scrolled{box-shadow:0 2px 16px rgba(40,188,178,0.1)}
+.nav-inner{max-width:1200px;margin:0 auto;padding:0 2rem;height:76px;display:flex;align-items:center;justify-content:space-between}
+.nav-logo{display:flex;align-items:center}
+.nav-logo img{height:38px;width:auto}
+.nav-right{display:flex;align-items:center;gap:2rem}
+.nav-links{display:flex;gap:1.75rem;list-style:none;align-items:center}
+.nav-links a{font-family:'Quicksand',sans-serif;font-weight:500;font-size:0.9rem;color:var(--texto);text-decoration:none;transition:color 0.2s;position:relative;padding-bottom:4px}
+.nav-links a:hover{color:var(--turquesa)}
+.nav-links a.active{color:var(--turquesa);font-weight:700}
+.nav-links a.active::after{content:'';position:absolute;bottom:-4px;left:0;right:0;height:2px;background:var(--turquesa);border-radius:2px}
+.nav-cta{background:var(--turquesa) !important;color:white !important;padding:0.55rem 1.4rem;border-radius:24px;font-weight:600 !important;text-decoration:none;font-family:'Quicksand',sans-serif;font-size:0.9rem;transition:background 0.2s}
+.nav-cta:hover{background:#1fa89f !important}
+.hamburger{display:none;background:none;border:none;cursor:pointer;flex-direction:column;gap:5px;padding:4px}
+.hamburger span{display:block;width:22px;height:2px;background:var(--tinta);border-radius:2px;transition:all 0.3s}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.mobile-menu{display:none;position:fixed;top:76px;left:0;right:0;background:var(--fondo);border-bottom:1px solid var(--line);z-index:99;padding:1.5rem 2rem 2rem}
+.mobile-menu.open{display:block}
+.mobile-menu ul{list-style:none;display:flex;flex-direction:column;gap:1.25rem}
+.mobile-menu a{font-family:'Quicksand',sans-serif;font-weight:500;font-size:1rem;color:var(--texto);text-decoration:none}
+.mobile-menu a.active{color:var(--turquesa);font-weight:700}
+
+/* HERO */
+.hero{margin-top:76px;display:grid;grid-template-columns:1fr 1fr;align-items:center;max-width:1200px;margin-left:auto;margin-right:auto;padding:4rem 2rem;gap:4rem;min-height:calc(100vh - 76px)}
+.hero-eyebrow{display:flex;align-items:center;gap:0.75rem;margin-bottom:1.5rem}
+.hero-eyebrow-line{width:28px;height:2px;background:var(--verde);border-radius:2px}
+.hero-eyebrow-text{font-family:'Quicksand',sans-serif;font-weight:500;font-size:0.82rem;color:var(--turquesa)}
+.hero h1{font-size:clamp(2.2rem,4vw,3.2rem);margin-bottom:1.25rem}
+.hero-desc{font-size:0.95rem;line-height:1.9;color:var(--texto);margin-bottom:2rem;max-width:480px}
+.hero-actions{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:2.5rem}
+.btn-primary{display:inline-flex;align-items:center;gap:0.5rem;padding:0.85rem 2rem;background:var(--turquesa);color:white;font-family:'Quicksand',sans-serif;font-weight:600;font-size:0.9rem;border-radius:32px;text-decoration:none;transition:background 0.2s,transform 0.2s;border:none;cursor:pointer}
+.btn-primary:hover{background:#1fa89f;transform:translateY(-1px)}
+.btn-primary svg{width:18px;height:18px;fill:white;flex-shrink:0}
+.btn-secondary{display:inline-flex;align-items:center;gap:0.5rem;padding:0.85rem 1.75rem;border:2px solid var(--turquesa);color:var(--turquesa);font-family:'Quicksand',sans-serif;font-weight:600;font-size:0.9rem;border-radius:32px;text-decoration:none;transition:all 0.2s}
+.btn-secondary:hover{background:var(--turquesa-mid)}
+.hero-stats{display:flex;gap:2.5rem;padding-top:2rem;border-top:1px solid var(--line)}
+.hero-stat-num{font-family:'Quicksand',sans-serif;font-weight:700;font-size:1.6rem;color:var(--turquesa);line-height:1}
+.hero-stat-label{font-size:0.78rem;color:var(--texto);margin-top:0.25rem}
+.hero-right{position:relative;display:flex;align-items:center;justify-content:center}
+.hero-photo-wrap{position:relative;width:100%;max-width:460px}
+.hero-photo{border-radius:28px;overflow:hidden;box-shadow:0 20px 50px rgba(40,188,178,0.18)}
+.hero-photo img{width:100%;height:100%;object-fit:cover;aspect-ratio:4/5}
+.hero-hojas{position:absolute;top:30px;left:25px;width:70px;z-index:2;pointer-events:none}
+
+/* COMODIDAD (¿Qué es?) */
+.comodidad{background:white}
+.comodidad-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:stretch}
+.comodidad-foto-izq{border-radius:20px;overflow:hidden}
+.comodidad-foto-izq img{width:100%;height:100%;object-fit:cover}
+.comodidad-der{display:flex;flex-direction:column;gap:1.5rem}
+.comodidad-texto p{font-size:0.93rem;line-height:1.9}
+.comodidad-foto-der{border-radius:20px;overflow:hidden;flex:1}
+.comodidad-foto-der img{width:100%;height:100%;object-fit:cover;min-height:220px}
+.comodidad-hojas{position:absolute;top:30px;left:25px;width:70px;z-index:2;pointer-events:none}
+
+/* FILOSOFÍA */
+.filosofia{background:var(--fondo)}
+.filosofia-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+.filosofia-card{border-radius:16px;padding:1.75rem;border:1px solid}
+.filosofia-card.mision{background:var(--turquesa-light);border-color:var(--turquesa)}
+.filosofia-card.vision{background:var(--verde-light);border-color:var(--verde)}
+.filosofia-icon{width:32px;height:32px;margin-bottom:0.75rem}
+.filosofia-label{font-family:'Quicksand',sans-serif;font-weight:700;font-size:0.72rem;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:0.6rem}
+.filosofia-card.mision .filosofia-label{color:var(--turquesa)}
+.filosofia-card.vision .filosofia-label{color:#6a9600}
+.filosofia-text{font-size:0.88rem;color:var(--tinta);line-height:1.8}
+
+/* CARACTERÍSTICAS */
+.caracteristicas{background:white}
+.carac-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;position:relative;margin-top:1rem}
+.carac-item{text-align:center;position:relative;z-index:1}
+.carac-item:nth-child(1),.carac-item:nth-child(2),.carac-item:nth-child(3){border-right:1px solid #95D600}
+.carac-icon{width:56px;height:56px;border-radius:50%;background:#28BCB2;display:flex;align-items:center;justify-content:center;margin:0 auto 1.1rem;box-shadow:0 4px 16px rgba(40,188,178,0.25)}
+.carac-icon img{width:66px;height:66px;}
+/* .carac-icon img{width:26px;height:26px;filter:brightness(0) invert(1)} */
+.carac-text{font-family:'Quicksand',sans-serif;font-weight:500;font-size:0.88rem;color:var(--tinta)}
+
+/* DISFRUTAR (dentro de Cómo funciona) */
+.disfrutar{background:var(--turquesa);color:white;position:relative;overflow:hidden}
+.disfrutar-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center}
+.disfrutar-texto h2{color:white;font-size:clamp(1.8rem,3vw,2.4rem);margin-bottom:0.75rem}
+.disfrutar-texto p{color:rgba(255,255,255,0.92);font-size:0.93rem;line-height:1.9;margin-bottom:1rem}
+.disfrutar-checks{display:grid;grid-template-columns:1fr 1fr;gap:0.85rem;margin-top:1.5rem}
+.disfrutar-check{display:flex;align-items:center;gap:0.6rem;background:white;border:2px solid var(--verde);border-radius:10px;padding:0.75rem 1rem}
+.disfrutar-check svg{width:20px;height:20px;stroke:var(--verde);fill:none;stroke-width:2.2;flex-shrink:0}
+.disfrutar-check span{font-size:0.85rem;font-weight:600;color:var(--tinta);font-family:'Quicksand',sans-serif}
+.disfrutar-foto{position:relative}
+.disfrutar-foto-wrap{border-radius:20px;overflow:hidden}
+.disfrutar-foto-wrap img{width:100%;height:100%;object-fit:cover;aspect-ratio:4/3}
+.disfrutar-hojas{position:absolute;top:50px;left:60px;width:60px;z-index:2;opacity:0.9;pointer-events:none}
+
+/* ASÍ FUNCIONA */
+.asi-funciona{background:var(--fondo)}
+.pasos-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;position:relative;margin-top:1rem}
+.pasos-grid::before{content:'';position:absolute;top:28px;left:10%;right:10%;height:2px;background:linear-gradient(90deg,#84CB56,#21B0A6);z-index:0}
+.paso{text-align:center;position:relative;z-index:1}
+.paso-num{width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1.1rem;box-shadow:0 4px 16px rgba(40,188,178,0.25)}
+.paso-num svg{width:24px;height:24px;stroke:white;fill:none;stroke-width:2}
+.paso:nth-child(1) .paso-num{background:#84CB56}
+.paso:nth-child(2) .paso-num{background:#2EBC65}
+.paso:nth-child(3) .paso-num{background:#2FBC8F}
+.paso:nth-child(4) .paso-num{background:#21B0A6}
+.paso-numero{font-family:'Quicksand',sans-serif;font-weight:700;font-size:1.2rem;color:#232220;margin-bottom:0.2rem}
+.paso-title{font-family:'Quicksand',sans-serif;font-weight:700;font-size:var(--sub);color:#232220;margin-bottom:0.4rem}
+.paso-desc{font-size:0.95rem;line-height:1.6;color:#232220}
+
+/* PRODUCTOS */
+.productos{background:white}
+.productos-tabs{display:flex;gap:0.6rem;margin-bottom:2.5rem;flex-wrap:wrap}
+.tab-btn{display:inline-flex;align-items:center;gap:0.5rem;padding:0.55rem 1.3rem;border-radius:24px;border:2px solid var(--line);background:transparent;font-family:'Quicksand',sans-serif;font-weight:600;font-size:0.85rem;color:var(--texto);cursor:pointer;transition:all 0.2s}
+.tab-btn.active{background:var(--turquesa);border-color:var(--turquesa);color:white}
+.tab-btn:hover{border-color:var(--turquesa);color:var(--turquesa)}
+.tab-icon{width:18px;height:18px;flex-shrink:0}
+.tab-icon-active{display:none}
+.tab-btn.active .tab-icon-active{display:block}
+.tab-btn.active .tab-icon-inactive{display:none}
+.productos-layout{display:none;grid-template-columns:1fr 380px;gap:2rem;align-items:start}
+.productos-layout.active{display:grid}
+.prod-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem}
+.prod-item{background:white;border:1.5px solid #e2e2e0;border-radius:14px;padding:1rem;cursor:pointer;text-align:center;font-family:inherit;transition:border-color 0.2s}
+.prod-item.active{border-color:var(--turquesa)}
+.prod-thumb{width:80%;margin:0 auto;aspect-ratio:1/1;border-radius:50%;overflow:hidden;margin-bottom:0.75rem}
+.prod-thumb img{width:100%;height:100%;object-fit:cover}
+.prod-name{font-family:'Quicksand',sans-serif;font-weight:500;font-size:0.82rem;color:var(--tinta)}
+.prod-carousel{position:relative;border-radius:20px;overflow:hidden;background:var(--fondo);box-shadow:0 8px 30px rgba(40,188,178,0.12)}
+.prod-carousel-img-wrap{position:relative;aspect-ratio:4/3.6}
+.prod-carousel-img-wrap img{width:100%;height:100%;object-fit:cover}
+.prod-carousel-tag{position:absolute;top:1rem;left:1rem;background:white;padding:0.4rem 1rem;border-radius:20px;font-family:'Quicksand',sans-serif;font-weight:600;font-size:0.8rem;color:var(--tinta);box-shadow:0 2px 10px rgba(0,0,0,0.1)}
+.prod-arrow{position:absolute;top:50%;transform:translateY(-50%);width:36px;height:36px;border-radius:50%;background:white;border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 2px 10px rgba(0,0,0,0.15);transition:background 0.2s}
+.prod-arrow:hover{background:var(--turquesa-light)}
+.prod-arrow svg{width:18px;height:18px;stroke:var(--tinta);fill:none;stroke-width:2.5}
+.prod-arrow.prev{left:1rem}
+.prod-arrow.next{right:1rem}
+.prod-carousel-dots{display:flex;justify-content:center;gap:0.4rem;padding:1rem}
+.prod-dot{width:8px;height:8px;border-radius:50%;background:var(--line);border:none;cursor:pointer;padding:0}
+.prod-dot.active{background:var(--turquesa)}
+
+/* BENEFICIO */
+.beneficio{background:#eef6ef}
+.beneficio-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.5rem;align-items:start}
+.beneficio-col{background:white;border:1px solid #e2e2e0;border-radius:16px;padding:1.5rem}
+.beneficio-col-title{font-family:'Quicksand',sans-serif;font-weight:600;font-size:0.85rem;text-transform:uppercase;letter-spacing:0.04em;color:var(--tinta);display:flex;align-items:center;gap:0.5rem;padding-bottom:0.85rem;border-bottom:2px solid var(--turquesa);margin-bottom:1rem}
+.beneficio-col.verde .beneficio-col-title{border-bottom-color:var(--verde)}
+.beneficio-col-title svg{width:16px;height:16px;stroke:var(--turquesa);fill:none;stroke-width:2;flex-shrink:0}
+.beneficio-col-title img{width:16px;height:16px;flex-shrink:0}
+.beneficio-col.verde .beneficio-col-title svg{stroke:#6a9600}
+.ben-list{display:flex;flex-direction:column;gap:0.6rem}
+.ben-item{display:flex;align-items:center;gap:0.6rem;padding:0.7rem 0.9rem;background:white;border-radius:10px;border:1.5px solid var(--turquesa-light)}
+.ben-item.verde{border-color:var(--verde-light)}
+.ben-check{width:18px;height:18px;border-radius:50%;background:transparent;border:1.5px solid var(--turquesa);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ben-check.verde{border-color:var(--verde)}
+.ben-check svg{width:9px;height:9px;stroke:var(--turquesa);fill:none;stroke-width:3}
+.ben-check.verde svg{stroke:#6a9600}
+.ben-text{font-size:0.85rem;color:var(--texto)}
+.beneficio-foto{position:relative;border-radius:16px;overflow:hidden;height:100%}
+.beneficio-foto-wrap{border-radius:20px;overflow:hidden}
+.beneficio-foto-wrap img{width:100%;height:100%;object-fit:cover;}
+.beneficio-foto img{width:100%;height:100%;object-fit:cover;min-height:320px; aspect-ratio:4/3;}
+.beneficio-hojas{position:absolute;top:50px;left:60px;width:60px;z-index:2;opacity:0.9;pointer-events:none}
+
+/* CONTACTO */
+.contacto{background:var(--tinta);color:white;position:relative;overflow:hidden}
+.contacto::before{content:'';position:absolute;top:-150px;right:-150px;width:450px;height:450px;border-radius:50%;background:rgba(40,188,178,0.07)}
+.contacto::after{content:'';position:absolute;bottom:-100px;left:-100px;width:300px;height:300px;border-radius:50%;background:rgba(149,214,0,0.05)}
+.contacto-inner{position:relative;text-align:center;max-width:680px;margin:0 auto}
+.contacto-inner .pleca{margin:0 auto 1.5rem}
+.contacto-inner h2{color:white;font-size:clamp(1.8rem,3vw,2.5rem);margin-bottom:1rem}
+.contacto-desc{color:rgba(255,255,255,0.6);font-size:0.93rem;line-height:1.9;margin:0 auto 2.5rem;max-width:520px}
+.btn-whatsapp{display:inline-flex;align-items:center;gap:0.75rem;padding:1rem 2.25rem;background:#25D366;color:white;font-family:'Quicksand',sans-serif;font-weight:600;font-size:0.95rem;border-radius:32px;text-decoration:none;transition:all 0.2s}
+.btn-whatsapp:hover{background:#1ebe5a;transform:translateY(-2px)}
+.btn-whatsapp svg{width:20px;height:20px;fill:white;flex-shrink:0}
+.contacto-datos{margin-top:3rem;padding-top:2rem;border-top:1px solid rgba(255,255,255,0.1);display:flex;justify-content:center;gap:3rem;flex-wrap:wrap}
+.cd-label{font-size:0.68rem;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.1em;font-family:'Quicksand',sans-serif;font-weight:500;margin-bottom:0.3rem}
+.cd-value{font-family:'Quicksand',sans-serif;font-weight:600;font-size:0.9rem;color:rgba(255,255,255,0.85)}
+.contacto-slogan{margin-top:2rem;font-family:'Quicksand',sans-serif;font-weight:500;font-style:italic;font-size:0.88rem;color:rgba(255,255,255,0.4)}
+
+/* FOOTER */
+/* TESTIMONIOS */
+.testimonios{background:#F7FCF3}
+.testimonios-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:1rem}
+.testimonio-card{background:#ffffff;border:1px solid #CAD0BD;border-radius:14px;padding:1.5rem}
+.testimonio-stars{display:flex;gap:0.2rem;margin-bottom:0.9rem}
+.testimonio-stars svg{width:18px;height:18px;fill:#28BCB2}
+.testimonio-texto{font-family:'Open Sans',sans-serif;font-size:0.88rem;line-height:1.75;color:#4C473E;font-style:italic;margin-bottom:1.5rem}
+.testimonio-autor{display:flex;align-items:center;gap:0.75rem}
+.testimonio-avatar{width:42px;height:42px;border-radius:50%;background:#DAF0D8;color:#28BCB2;display:flex;align-items:center;justify-content:center;font-family:'Quicksand',sans-serif;font-weight:700;font-size:1rem;flex-shrink:0}
+.testimonio-nombre{font-family:'Open Sans',sans-serif;font-weight:700;font-size:0.85rem;color:#232220}
+.testimonio-empresa{font-family:'Open Sans',sans-serif;font-size:0.78rem;color:#232220}
+
+footer{background:#1a1917;padding:2rem;text-align:center}
+footer img{height:28px;margin:0 auto 0.6rem}
+.footer-copy{font-size:0.72rem;color:rgba(255,255,255,0.25)}
+
+/* RESPONSIVE — 1200 / 768 / 480 */
+@media(max-width:1200px){
+  .beneficio-grid{grid-template-columns:1fr 1fr}
+  .beneficio-foto{display:block}
+}
+@media(max-width:768px){
+  .nav-right{display:none}
+  .hamburger{display:flex}
+  .section{padding:3.5rem 1.5rem}
+  .testimonios-grid{grid-template-columns:1fr}
+  .hero{padding:2.5rem 1.5rem;grid-template-columns:1fr;min-height:auto;gap:2.5rem}
+  .hero-right{order:-1}
+  .comodidad-grid{grid-template-columns:1fr}
+  .filosofia-grid{grid-template-columns:1fr}
+  .carac-grid{grid-template-columns:1fr 1fr;gap:2rem 1rem}
+  .carac-item:nth-child(1),.carac-item:nth-child(2),.carac-item:nth-child(3){border-right:none}
+  .disfrutar-grid{grid-template-columns:1fr}
+  .disfrutar-foto{order:-1}
+  .pasos-grid{grid-template-columns:1fr;gap:2rem 1rem}
+  .pasos-grid::before{display:none}
+  .productos-layout.active{grid-template-columns:1fr}
+  .prod-grid{grid-template-columns:repeat(4,1fr); display:none;}
+  .beneficio-grid{grid-template-columns:1fr}
+  .contacto-datos{gap:1.5rem}
+}
+@media(max-width:480px){
+  .hero-actions{flex-direction:column;align-items:flex-start}
+  .hero-stats{gap:1.5rem}
+  .carac-grid{grid-template-columns:1fr}
+  .prod-grid{grid-template-columns:1fr 1fr; display:none;}
+  .disfrutar-checks{grid-template-columns:1fr}
+}
+@media(prefers-reduced-motion:reduce){
+  .reveal{opacity:1;transform:none}
+  *{transition:none !important}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="#inicio" class="nav-logo"><img src="img/0_logoNaturalNAV.png" alt="Natural®"></a>
+    <div class="nav-right">
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#inicio" data-section="inicio" class="active">Inicio</a></li>
+        <li><a href="#que-es" data-section="que-es">¿Qué es?</a></li>
+        <li><a href="#como-funciona" data-section="como-funciona">Cómo funciona</a></li>
+        <li><a href="#productos" data-section="productos">Productos</a></li>
+        <li><a href="#beneficio" data-section="beneficio">Beneficio</a></li>
+      </ul>
+      <a href="https://wa.me/5215614095960" class="nav-cta" target="_blank">Contáctanos</a>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="Menú"><span></span><span></span><span></span></button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <ul>
+      <li><a href="#inicio" data-section="inicio" onclick="closeMobile()" class="active">Inicio</a></li>
+      <li><a href="#que-es" data-section="que-es" onclick="closeMobile()">¿Qué es?</a></li>
+      <li><a href="#como-funciona" data-section="como-funciona" onclick="closeMobile()">Cómo funciona</a></li>
+      <li><a href="#productos" data-section="productos" onclick="closeMobile()">Productos</a></li>
+      <li><a href="#beneficio" data-section="beneficio" onclick="closeMobile()">Beneficio</a></li>
+      <li><a href="https://wa.me/5215614095960" target="_blank">Contáctanos</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="inicio">
+  <div class="hero-left">
+    <div class="hero-eyebrow reveal">
+      <div class="hero-eyebrow-line"></div>
+      <span class="hero-eyebrow-text">SERVICIO CORPORATIVO</span>
+    </div>
+    <h1 class="reveal">Bienestar y sabor,<br><span class="accent">sin salir</span> de tu empresa</h1>
+    <p class="hero-desc reveal">Somos una empresa que acercamos colaciones, desayunos, botanas o ese pequeño antojo que todos tenemos hasta tu lugar de trabajo. Todos nuestros productos son saludables, lo más sanos posible, para cuidar tu salud. Puedes consumir nuestros productos con la garantía de su calidad y sabor.</p>
+    <div class="hero-actions reveal">
+      <a href="https://wa.me/5215614095960?text=Hola%20Natural®,%20me%20interesa%20el%20servicio%20para%20mi%20empresa" class="btn-primary" target="_blank">
+        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Hablar con Natural®
+      </a>
+      <a href="#como-funciona" class="btn-secondary">Ver cómo funciona</a>
+    </div>
+    <div class="hero-stats reveal">
+      <div><div class="hero-stat-num">30+</div><div class="hero-stat-label">Productos disponibles</div></div>
+      <div><div class="hero-stat-num">CDMX</div><div class="hero-stat-label">Zona de cobertura</div></div>
+    </div>
+  </div>
+  <div class="hero-right reveal">
+    <div class="hero-photo-wrap">
+      <img src="img/1a_hojashero chava.png" alt="" class="hero-hojas">
+      <div class="hero-photo"><img src="img/1_fotohero_chava.png" alt="Colaboradora disfrutando un sandwich Natural®"></div>
+    </div>
+  </div>
+</section>
+
+<!-- COMODIDAD (¿Qué es?) -->
+<section class="section comodidad" id="que-es">
+  <div class="section-inner">
+    <div class="comodidad-grid">
+      <div class="comodidad-foto-izq reveal">
+        <img src="img/2_senora.jpg" alt="Vendedora Natural® con el carrito de productos">
+      </div>
+      <div class="comodidad-der reveal">
+        <div class="comodidad-texto">
+          <div class="pleca"></div>
+          <h2 class="section-title">Un servicio pensado para la <span class="accent">comodidad</span> de tus colaboradores</h2>
+          <p>Nuestro equipo se encarga de acercar, atender y mantener disponible la oferta de productos durante el recorrido en las instalaciones. Un servicio dentro de tu empresa, no afuera de ella.</p>
+        </div>
+        <div class="comodidad-foto-der">
+          <img src="img/3_chavo_sandwich.png" alt="Colaborador disfrutando un producto Natural® en su oficina">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FILOSOFÍA -->
+<section class="section filosofia">
+  <div class="section-inner">
+    <div class="reveal" style="margin-bottom:2rem">
+      <div class="pleca"></div>
+      <h2 class="section-title">Filosofía</h2>
+    </div>
+    <div class="filosofia-grid">
+      <div class="filosofia-card mision reveal">
+        <img src="img/4_mision_icono.svg" alt="" class="filosofia-icon">
+        <div class="filosofia-label">Nuestra misión</div>
+        <div class="filosofia-text">Brindar soluciones de alimentación práctica y de calidad dentro de los espacios de trabajo, acercando a los colaboradores productos cuidadosamente seleccionados que favorezcan su bienestar, comodidad y experiencia durante la jornada laboral.</div>
+      </div>
+      <div class="filosofia-card vision reveal">
+        <img src="img/5_vision_icono.svg" alt="" class="filosofia-icon">
+        <div class="filosofia-label">Nuestra visión</div>
+        <div class="filosofia-text">Transformar la manera en que los colaboradores disfrutan sus alimentos durante la jornada laboral, llevando practicidad a cada espacio de trabajo y convirtiéndonos en un aliado estratégico para las empresas.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CARACTERÍSTICAS -->
+<section class="section caracteristicas">
+  <div class="section-inner">
+    <div class="reveal" style="margin-bottom:1rem">
+      <div class="pleca"></div>
+      <h2 class="section-title">Lo que nos distingue</h2>
+    </div>
+    <div class="carac-grid">
+      <div class="carac-item reveal">
+        <div class="carac-icon"><img src="img/6_Servicio.svg" alt=""></div>
+        <div class="carac-text">Carrito Natural® en tus instalaciones</div>
+      </div>
+      <div class="carac-item reveal">
+        <div class="carac-icon"><img src="img/7_Servicio.svg" alt=""></div>
+        <div class="carac-text">Atención personalizada y directa</div>
+      </div>
+      <div class="carac-item reveal">
+        <div class="carac-icon"><img src="img/8_Servicio.svg" alt=""></div>
+        <div class="carac-text">Variedad de productos saludables</div>
+      </div>
+      <div class="carac-item reveal">
+        <div class="carac-icon"><img src="img/9_Servicio.svg" alt=""></div>
+        <div class="carac-text">Horario matutino 09:00 – 14:00 hrs</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CÓMO FUNCIONA -->
+<section class="disfrutar" id="como-funciona">
+  <div class="section" style="padding-bottom:4rem">
+    <div class="section-inner">
+      <div class="disfrutar-grid">
+        <div class="disfrutar-texto reveal">
+          <div class="pleca"></div>
+          <h2>Disfrutar sin salir de la oficina</h2>
+          <p>Natural® lleva una variedad de alimentos y bebidas directamente hasta los colaboradores dentro de sus instalaciones.</p>
+          <p>Durante la jornada laboral, los colaboradores necesitan hacer pequeñas pausas para desayunar, comer algo o satisfacer un antojo. Salir de las instalaciones implica desplazamientos, filas y tiempo fuera de su espacio de trabajo.</p>
+          <div class="disfrutar-checks">
+            <div class="disfrutar-check"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 16 9"/></svg><span>Menos desplazamientos</span></div>
+            <div class="disfrutar-check"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 16 9"/></svg><span>Más comodidad</span></div>
+            <div class="disfrutar-check"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 16 9"/></svg><span>Más opciones</span></div>
+            <div class="disfrutar-check"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 16 9"/></svg><span>Experiencia durante la jornada</span></div>
+          </div>
+        </div>
+        <div class="disfrutar-foto reveal">
+          <img src="img/10a_HojasChava_sandwich.png" alt="" class="disfrutar-hojas">
+          <div class="disfrutar-foto-wrap"><img src="img/10_chava_sandwich.png" alt="Colaboradora disfrutando una botana Natural® en su escritorio"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="section asi-funciona" style="background:var(--fondo)">
+    <div class="section-inner">
+      <div class="reveal" style="margin-bottom:1rem">
+        <div class="pleca"></div>
+        <h2 class="section-title">Así funciona el servicio</h2>
+      </div>
+      <div class="pasos-grid">
+        <div class="paso reveal">
+          <div class="paso-num"><img src="img/12_Fun.svg" alt=""></div>
+          <div class="paso-numero">01</div>
+          <div class="paso-title">Llegamos a tu empresa</div>
+          <div class="paso-desc">Natural® ingresa a las instalaciones en el horario previamente acordado.</div>
+        </div>
+        <div class="paso reveal">
+          <div class="paso-num"><img src="img/13_Fun.svg" alt=""></div>
+          <div class="paso-numero">02</div>
+          <div class="paso-title">Acercamos el carrito</div>
+          <div class="paso-desc">Nuestro equipo recorre las áreas de trabajo con el carrito cargado de productos.</div>
+        </div>
+        <div class="paso reveal">
+          <div class="paso-num"><img src="img/14_Fun.svg" alt=""></div>
+          <div class="paso-numero">03</div>
+          <div class="paso-title">El colaborador elige</div>
+          <div class="paso-desc">Cada colaborador selecciona lo que se le antoje: tortas, fruta, bebidas, botanas y más.</div>
+        </div>
+        <div class="paso reveal">
+          <div class="paso-num"><img src="img/15_Fun.svg" alt=""></div>
+          <div class="paso-numero">04</div>
+          <div class="paso-title">Disfruta sin salir</div>
+          <div class="paso-desc">Obtiene su producto en segundos y regresa a su jornada sin desplazamientos.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTOS -->
+<section class="section productos" id="productos">
+  <div class="section-inner">
+    <div class="reveal" style="margin-bottom:2rem">
+      <div class="pleca"></div>
+      <h2 class="section-title">¿Qué llevamos a tu empresa?</h2>
+      <p class="section-desc">Productos saludables y procesados, creando una variedad que responde a los diferentes gustos y necesidades de los colaboradores.</p>
+    </div>
+    <div class="productos-tabs reveal">
+      <button class="tab-btn active" onclick="switchTab('frescos',this)">
+        <img src="img/16_Off_nutrition.svg" alt="" class="tab-icon tab-icon-inactive">
+        <img src="img/16_ON_nutrition.svg" alt="" class="tab-icon tab-icon-active">
+        Frescos
+      </button>
+      <button class="tab-btn" onclick="switchTab('preparados',this)">
+        <img src="img/17_Off_breakfast_dining.svg" alt="" class="tab-icon tab-icon-inactive">
+        <img src="img/17_ON_breakfast_dining.svg" alt="" class="tab-icon tab-icon-active">
+        Preparados
+      </button>
+      <button class="tab-btn" onclick="switchTab('bebidas',this)">
+        <img src="img/18_Off_water_medium.svg" alt="" class="tab-icon tab-icon-inactive">
+        <img src="img/18_ON_water_medium.svg" alt="" class="tab-icon tab-icon-active">
+        Bebidas
+      </button>
+      <button class="tab-btn" onclick="switchTab('botanas',this)">
+        <img src="img/19_Off_cookie.svg" alt="" class="tab-icon tab-icon-inactive">
+        <img src="img/19_ON_cookie.svg" alt="" class="tab-icon tab-icon-active">
+        Antojos y Botanas
+      </button>
+    </div>
+    <div class="productos-layout active reveal" id="layout-frescos">
+      <div class="prod-grid" id="grid-frescos"></div>
+      <div class="prod-carousel" id="carousel-frescos"></div>
+    </div>
+    <div class="productos-layout" id="layout-preparados">
+      <div class="prod-grid" id="grid-preparados"></div>
+      <div class="prod-carousel" id="carousel-preparados"></div>
+    </div>
+    <div class="productos-layout" id="layout-bebidas">
+      <div class="prod-grid" id="grid-bebidas"></div>
+      <div class="prod-carousel" id="carousel-bebidas"></div>
+    </div>
+    <div class="productos-layout" id="layout-botanas">
+      <div class="prod-grid" id="grid-botanas"></div>
+      <div class="prod-carousel" id="carousel-botanas"></div>
+    </div>
+  </div>
+</section>
+
+<!-- BENEFICIO -->
+<section class="section beneficio" id="beneficio">
+  <div class="section-inner">
+    <div class="reveal" style="margin-bottom:1rem">
+      <div class="pleca"></div>
+      <h2 class="section-title">¿Por qué Natural®?</h2>
+      <p class="section-desc">Una solución que beneficia tanto a los colaboradores como a la empresa.</p>
+    </div>
+    <div class="beneficio-grid">
+      <div class="beneficio-col reveal">
+        <div class="beneficio-col-title"><img src="img/26_person.svg" alt="">Para los colaboradores</div>
+        <div class="ben-list">
+          <div class="ben-item"><div class="ben-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><span class="ben-text">Ahorro de tiempo</span></div>
+          <div class="ben-item"><div class="ben-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><span class="ben-text">Variedad</span></div>
+          <div class="ben-item"><div class="ben-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><span class="ben-text">Bienestar</span></div>
+          <div class="ben-item"><div class="ben-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><span class="ben-text">Una pausa agradable</span></div>
+        </div>
+      </div>
+      <div class="beneficio-col verde reveal">
+        <div class="beneficio-col-title"><img src="img/27_corporate_fare.svg" alt="">Para tu empresa</div>
+        <div class="ben-list">
+          <div class="ben-item verde"><div class="ben-check verde"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><span class="ben-text">Comodidad para los colaboradores</span></div>
+          <div class="ben-item verde"><div class="ben-check verde"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><span class="ben-text">Aprovechamiento del tiempo</span></div>
+          <div class="ben-item verde"><div class="ben-check verde"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><span class="ben-text">Bienestar dentro del espacio laboral</span></div>
+          <div class="ben-item verde"><div class="ben-check verde"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><span class="ben-text">Experiencia y percepción positiva</span></div>
+        </div>
+      </div>
+      <div class="beneficio-foto reveal">
+        <div class="beneficio-foto-wrap"><img src="img/29_chavoSandwich.png" alt="Colaborador disfrutando un producto Natural®"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIOS -->
+<section class="section testimonios">
+  <div class="section-inner">
+    <div class="reveal" style="margin-bottom:1rem">
+      <div class="pleca"></div>
+      <h2 class="section-title">Nuestra clientela opina</h2>
+    </div>
+    <div class="testimonios-grid">
+      <div class="testimonio-card reveal">
+        <div class="testimonio-stars">
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
+        </div>
+        <div class="testimonio-texto">"Desde que Natural llega a nuestras instalaciones, el equipo ya no pierde tiempo saliendo a buscar algo de comer. El servicio es puntual y los productos siempre frescos."</div>
+        <div class="testimonio-autor">
+          <div class="testimonio-avatar">B</div>
+          <div>
+            <div class="testimonio-nombre">Brenda González</div>
+            <div class="testimonio-empresa">Grupo Salinas</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonio-card reveal">
+        <div class="testimonio-stars">
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
+        </div>
+        <div class="testimonio-texto">"Ya no tengo que salir a la calle entre juntas para conseguir algo de comer — el carrito llega directo a mi área y siempre encuentro algo rico y a la mano."</div>
+        <div class="testimonio-autor">
+          <div class="testimonio-avatar">J</div>
+          <div>
+            <div class="testimonio-nombre">Juan Carlos Morales</div>
+            <div class="testimonio-empresa">TV Azteca</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonio-card reveal">
+        <div class="testimonio-stars">
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
+        </div>
+        <div class="testimonio-texto">"Lo que más valoramos es la variedad y que todo sea saludable. Es una atención que nuestros colaboradores agradecen todos los días, sin que tengan que salir del edificio."</div>
+        <div class="testimonio-autor">
+          <div class="testimonio-avatar">R</div>
+          <div>
+            <div class="testimonio-nombre">Rosa Hernández</div>
+            <div class="testimonio-empresa">Elektra</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACTO -->
+<section class="section contacto" id="contacto">
+  <div class="section-inner">
+    <div class="contacto-inner reveal">
+      <div class="pleca"></div>
+      <h2>¿Quieres que Natural® llegue a tu empresa?</h2>
+      <p class="contacto-desc">Escríbenos por WhatsApp y cuéntanos sobre tu empresa. Coordinamos una visita para que conozcas el servicio de cerca y sin compromiso.</p>
+      <a href="https://wa.me/5215614095960?text=Hola%20Natural®,%20me%20interesa%20el%20servicio%20para%20mi%20empresa" class="btn-whatsapp" target="_blank">
+        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Escribir a Natural®
+      </a>
+      <div class="contacto-datos">
+        <div><div class="cd-label">WhatsApp</div><div class="cd-value">56 1409 5960</div></div>
+        <div><div class="cd-label">Zona de cobertura</div><div class="cd-value">Ciudad de México</div></div>
+      </div>
+      <div class="contacto-slogan">"Ideas dulces, enchiladas y de chocolate"</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <img src="img/30_logoNatural_footer.png" alt="Natural®">
+  <div class="footer-copy">© 2026 Natural® · Servicio de alimentación corporativa · Ciudad de México</div>
+</footer>
+
+<script>
+/* Datos de productos — cada producto tiene su propio archivo de imagen en img/, edítalos uno por uno */
+const PRODUCTOS = {
+  frescos: [
+  {name:"Vaso de fruta", img:"img/20_fruta.jpg"},
+    {name:"Ensalada", img:"img/21_ensalada.jpg"},
+    {name:"Yogurt", img:"img/21b_soloyogurt.jpg"},
+    {name:"Yogurt con fruta", img:"img/21a_yogurt.jpg"},
+    {name:"Melón", img:"img/21_melon.jpg"},
+    {name:"Sandía", img:"img/21_sandia.jpg"},
+    {name:"Papaya", img:"img/21_papaya.jpg"},
+    {name:"Pepino", img:"img/21_pepino.jpg"}
+  ],
+  preparados: [
+    {name:"Chapata", img:"img/22_chapata.jpg"},
+    {name:"Torta", img:"img/22_torta.jpg"},
+    {name:"Sandwich", img:"img/22_sandwich.jpg"},
+    {name:"Panini", img:"img/22_panini.jpg"},
+    {name:"Molletes", img:"img/22_molletes.jpg"},
+    {name:"Sincronizada", img:"img/22_sincronizada.jpg"},
+    {name:"Hot cake", img:"img/22_hotcakes.jpg"},
+    {name:"Chilaquiles", img:"img/22_chilaquiles.jpg"}
+  ],
+  bebidas: [
+    {name:"Agua natural", img:"img/23_agua.jpg"},
+    {name:"Agua mineral", img:"img/23_aguaMineral.jpg"},
+    {name:"Agua de sabor", img:"img/23_aguaJamaica.jpg"},
+    {name:"Refresco de cola", img:"img/23_cocacolal.jpg"},
+    {name:"Refresco de sangría", img:"img/23_sangria.jpg"},
+    {name:"Jugo de naranja", img:"img/23_naranja.jpg"},
+    {name:"Té helado", img:"img/23_teHelado.jpg"},
+    {name:"Yogurt para beber", img:"img/23_yogurtbeber.jpg"}
+  ],
+  botanas: [
+    {name:"Papa Pringles", img:"img/24_papaPringles.jpg"},
+    {name:"Sabritas", img:"img/24_papaSabritas.jpg"},
+    {name:"Veggies", img:"img/24_veggies.jpg"},
+    {name:"Chicharrón de cerdo", img:"img/24_chicharon.jpg"},
+    {name:"Mix nuez chile", img:"img/24_mixNueces.jpg"},
+    {name:"Cacahuate japonés", img:"img/24_cacJaponeses.jpg"},
+    {name:"Barra de Amaranto", img:"img/24_amaranto.jpg"},
+    {name:"Obleas", img:"img/24_obleas.jpg"}
+  ]
+};
+
+const carouselIndex = {frescos:0,preparados:0,bebidas:0,botanas:0};
+
+function buildCategoria(cat){
+  const grid = document.getElementById('grid-'+cat);
+  const carousel = document.getElementById('carousel-'+cat);
+  grid.innerHTML = PRODUCTOS[cat].map((p,i)=>`
+    <button class="prod-item${i===0?' active':''}" data-i="${i}" onclick="selectProducto('${cat}',${i})">
+      <div class="prod-thumb"><img src="${p.img}" alt="${p.name}"></div>
+      <div class="prod-name">${p.name}</div>
+    </button>`).join('');
+  carousel.innerHTML = `
+    <div class="prod-carousel-img-wrap">
+      <span class="prod-carousel-tag" id="tag-${cat}">${PRODUCTOS[cat][0].name}</span>
+      <img id="img-${cat}" src="${PRODUCTOS[cat][0].img}" alt="${PRODUCTOS[cat][0].name}">
+      <button class="prod-arrow prev" onclick="moveCarousel('${cat}',-1)" aria-label="Anterior"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
+      <button class="prod-arrow next" onclick="moveCarousel('${cat}',1)" aria-label="Siguiente"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
+    </div>
+    <div class="prod-carousel-dots" id="dots-${cat}">
+      ${PRODUCTOS[cat].map((_,i)=>`<button class="prod-dot${i===0?' active':''}" onclick="selectProducto('${cat}',${i})"></button>`).join('')}
+    </div>`;
+}
+function selectProducto(cat,i){
+  carouselIndex[cat]=i;
+  const p = PRODUCTOS[cat][i];
+  document.getElementById('grid-'+cat).querySelectorAll('.prod-item').forEach(el=>el.classList.toggle('active',+el.dataset.i===i));
+  document.getElementById('dots-'+cat).querySelectorAll('.prod-dot').forEach((el,idx)=>el.classList.toggle('active',idx===i));
+  document.getElementById('img-'+cat).src=p.img;
+  document.getElementById('img-'+cat).alt=p.name;
+  document.getElementById('tag-'+cat).textContent=p.name;
+}
+function moveCarousel(cat,dir){
+  let i=(carouselIndex[cat]+dir+PRODUCTOS[cat].length)%PRODUCTOS[cat].length;
+  selectProducto(cat,i);
+}
+Object.keys(PRODUCTOS).forEach(buildCategoria);
+
+function switchTab(id,btn){
+  document.querySelectorAll('.productos-layout').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('layout-'+id).classList.add('active');
+  btn.classList.add('active');
+}
+
+/* NAV scroll shadow */
+window.addEventListener('scroll',()=>{
+  document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>20);
+});
+
+/* Hamburger */
+const ham=document.getElementById('hamburger');
+const mob=document.getElementById('mobileMenu');
+ham.addEventListener('click',()=>{ham.classList.toggle('open');mob.classList.toggle('open')});
+function closeMobile(){ham.classList.remove('open');mob.classList.remove('open')}
+
+/* Nav activo: click inmediato */
+document.querySelectorAll('a[data-section]').forEach(link=>{
+  link.addEventListener('click',()=>{
+    document.querySelectorAll('a[data-section]').forEach(a=>a.classList.remove('active'));
+    document.querySelectorAll(`a[data-section="${link.dataset.section}"]`).forEach(a=>a.classList.add('active'));
+  });
+});
+/* Nav activo: scroll-spy */
+const navSections = ['inicio','que-es','como-funciona','productos','beneficio'].map(id=>document.getElementById(id)).filter(Boolean);
+const navObs = new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      const id = entry.target.id;
+      document.querySelectorAll('a[data-section]').forEach(a=>a.classList.remove('active'));
+      document.querySelectorAll(`a[data-section="${id}"]`).forEach(a=>a.classList.add('active'));
+    }
+  });
+},{rootMargin:'-40% 0px -50% 0px',threshold:0});
+navSections.forEach(s=>navObs.observe(s));
+
+/* Reveal on scroll */
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')});
+},{threshold:0.1});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
