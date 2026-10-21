@@ -1,0 +1,1064 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+<title>Bank — De la información financiera al control</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Georama:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#183045;
+    --surface:#1D3A5D;
+    --surface-2:#12253B;
+    --surface-3:#313740;
+    --border:#2b3b61;
+    --border-2:#6f7279;
+    --border-3:#1f4dbb;
+    --gold:#E4B22D;
+    --blue:#1D63CA;
+    --orange:#E8A350;
+    --green:#6FBE5D;
+    --white:#FFFFFF;
+    --text:#E4E3F0;
+    --muted:#93A2B7;
+    --cream:#F0E5CF;
+    --r-lg:20px;
+    --r-md:14px;
+    --r-pill:999px;
+    --font-d:'Georama', sans-serif;
+    --font-b:'Manrope', sans-serif;
+    --maxw:1220px;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--font-b);
+    -webkit-font-smoothing:antialiased;
+  }
+  img,svg{max-width:100%; display:block;}
+  a{color:inherit; text-decoration:none;}
+  ul{margin:0; padding:0; list-style:none;}
+  h1,h2,h3{margin:0; font-family:var(--font-d); font-weight:700; color:var(--white);}
+  p{margin:0;}
+
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 24px;}
+  section{padding:88px 0;}
+
+  /* ---------- Reveal on scroll ---------- */
+  .reveal{opacity:0; transform:translateY(18px); transition:opacity .7s ease, transform .7s ease;}
+  .reveal.in{opacity:1; transform:translateY(0);}
+  @media (prefers-reduced-motion: reduce){
+    .reveal{opacity:1; transform:none; transition:none;}
+  }
+
+  /* ---------- Nav ---------- */
+  .nav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(24,48,69,0.86);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--border);
+  }
+  .nav .wrap{display:flex; align-items:center; justify-content:space-between; height:76px; position:relative;}
+  .brand{display:flex; align-items:center; gap:10px; font-family:var(--font-d); font-weight:700; font-size:20px; color:var(--white);}
+  .brand .mark{width:30px; height:30px;}
+  .nav-right{display:flex; align-items:center; gap:34px; margin-left:auto;}
+  .nav-links{display:none; align-items:center; gap:34px; font-size:15px; color:var(--text);}
+  .nav-links a{opacity:.85; transition:opacity .2s;}
+  .nav-links a:hover{opacity:1;}
+  .nav-right .nav-cta{display:none;}
+  .btn{
+    display:inline-flex; align-items:center; justify-content:center;
+    padding:13px 28px; border-radius:var(--r-pill);
+    font-family:var(--font-b); font-weight:700; font-size:15px;
+    cursor:pointer; border:1.5px solid transparent; white-space:nowrap;
+  }
+  .btn-primary{background:var(--gold); color:var(--bg);}
+  .btn-secondary{background:transparent; border-color:rgba(255,255,255,0.5); color:var(--white);}
+
+  /* hamburger (mobile only) */
+  .hamburger{
+    display:flex; flex-direction:column; justify-content:center; gap:5px;
+    width:38px; height:38px; padding:8px; background:none; border:none; cursor:pointer; margin-left:auto;
+  }
+  .hamburger span{display:block; width:100%; height:2px; background:var(--white); border-radius:2px; transition:transform .2s ease, opacity .2s ease;}
+  .hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+  .hamburger.open span:nth-child(2){opacity:0;}
+  .hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+
+  .mobile-menu{
+    position:absolute; top:100%; left:0; right:0;
+    background:var(--bg); border-bottom:1px solid var(--border);
+    padding:10px 24px 22px; display:flex; flex-direction:column;
+    opacity:0; transform:translateY(-8px); pointer-events:none;
+    transition:opacity .2s ease, transform .2s ease;
+  }
+  .mobile-menu.open{opacity:1; transform:translateY(0); pointer-events:auto;}
+  .mobile-menu a{padding:13px 2px; font-size:15px; color:var(--text); border-bottom:1px solid var(--border);}
+  .mobile-menu .btn{margin-top:16px; width:100%;}
+  .mobile-menu a.btn-primary{color:var(--bg); border-bottom:none;}
+
+  @media (min-width:768px){
+    .nav-links{display:flex;}
+    .nav-right .nav-cta{display:inline-flex;}
+    .hamburger, .mobile-menu{display:none;}
+  }
+
+  /* ---------- Hero ---------- */
+  .hero{position:relative; padding-top:64px; padding-bottom:64px; overflow:hidden;}
+  .hero-bg{position:absolute; inset:0; z-index:0;}
+  .hero-bg img{width:100%; height:100%; object-fit:cover; display:block; object-position: center 70%;}
+  .hero-bg::after{
+    content:""; position:absolute; inset:0;
+    background:linear-gradient(115deg, var(--bg) 12%, rgba(24,48,69,0.75) 45%, rgba(24,48,69,0.55) 65%, rgba(24,48,69,0.9) 100%);
+  }
+  .hero-grid{position:relative; z-index:1; display:grid; grid-template-columns:1fr; gap:28px; align-items:center;}
+  .hero-visual{order:-1;}
+  .kicker{
+    display:inline-block; font-size:13px; font-weight:600; color:var(--gold);
+    padding:6px 14px; border:1px solid rgba(228,178,45,0.4); border-radius:var(--r-pill);
+    margin-bottom:22px;
+  }
+  .hero h1{font-size:44px; line-height:1.08; letter-spacing:-0.5px;}
+  .hero h1 .hl{color:var(--gold);}
+  .hero p.lede{font-family:var(--font-b); font-size:17px; line-height:1.65; color:var(--text); max-width:52ch; margin-top:22px;}
+  .hero p.hero-sub{font-size:14px; color:var(--muted); margin-top:12px; max-width:52ch;}
+  .hero-actions{display:flex; flex-wrap:wrap; gap:14px; margin-top:34px;}
+
+  /* hero visual: simulated product photo */
+  .hero-visual{position:relative; width:100%; max-width:640px; margin:0 auto;}
+  .device{
+    background:var(--surface-2); border:1px solid var(--border); border-radius:var(--r-lg);
+    box-shadow:0 30px 60px -20px rgba(0,0,0,0.5);
+    overflow:hidden;
+  }
+  .device--photo{background:transparent; border:none; box-shadow:none; border-radius:var(--r-lg);}
+  .device-photo{width:100%; display:block;}
+  .device-photo img{width:100%; height:auto; display:block;}
+  .device-bar{display:flex; gap:6px; padding:14px 16px; background:var(--surface); border-bottom:1px solid var(--border);}
+  .device-bar span{width:9px; height:9px; border-radius:50%; background:rgba(255,255,255,0.18);}
+  .device-body{padding:22px;}
+  .device-row{display:flex; align-items:center; justify-content:space-between; margin-bottom:18px;}
+  .device-title{font-family:var(--font-d); font-weight:600; font-size:14px; color:var(--white);}
+  .device-tag{font-size:11px; color:var(--green); background:rgba(111,190,93,0.14); padding:4px 10px; border-radius:var(--r-pill);}
+  .mini-bars{display:flex; align-items:flex-end; gap:8px; height:110px; padding:0 2px;}
+  .mini-bars i{flex:1; border-radius:4px 4px 0 0; display:block;}
+  .device-lines{display:flex; flex-direction:column; gap:8px; margin-top:20px;}
+  .device-lines div{height:8px; border-radius:4px; background:rgba(228,227,240,0.12);}
+
+  .float-card{
+    position:absolute; background:var(--surface); border:1px solid var(--border);
+    border-radius:var(--r-md); padding:14px 16px; box-shadow:0 18px 30px -12px rgba(0,0,0,0.55);
+    display:flex; align-items:center; gap:10px;
+  }
+  .float-card .ico{width:30px; height:30px; border-radius:50%; background:rgba(111,190,93,0.16); display:flex; align-items:center; justify-content:center; flex:none;}
+  .float-card .lbl{font-size:11px; color:var(--muted);}
+  .float-card .val{font-family:var(--font-d); font-weight:600; font-size:15px; color:var(--white);}
+  .float-1{left:-18px; bottom:-22px;}
+  .float-2{right:-10px; top:26px;}
+
+  @media (min-width:900px){
+    .hero-grid{grid-template-columns:0.85fr 1.15fr; gap:64px;}
+    .hero h1{font-size:53px;}
+    .hero-visual{margin-top: 50px; order:0;}
+  }
+
+  /* ---------- Section heads ---------- */
+  .sec-head{max-width:640px; margin-bottom:52px;}
+  .sec-head h2{font-size:30px; line-height:1.18;}
+  .sec-head p{font-size:16px; color:var(--muted); margin-top:14px; line-height:1.6;}
+
+  /* ---------- El problema ---------- */
+  .problem{background:var(--surface-2);}
+  .problem-grid{display:grid; grid-template-columns:1fr; gap:20px;}
+  .problem-card{
+    background:var(--surface); border:1px solid var(--border); border-radius:var(--r-lg);
+    padding:30px 28px;
+  }
+  .problem-img{width:100%; aspect-ratio:16/10; object-fit:cover; border-radius:10px; margin-bottom:20px; background:var(--surface-2);}
+  .problem-card .stat{font-family:var(--font-d); font-weight:700; font-size:36px; color:var(--gold); margin-bottom:14px;}
+  .problem-card h3{font-size:19px; margin-bottom:10px;}
+  .problem-card p{font-size:15px; color:var(--muted); line-height:1.6;}
+  .problem-note{margin-top:32px; font-size:15px; color:var(--text); border-top:1px solid var(--border); padding-top:24px;}
+
+  @media (min-width:768px){
+    .problem-grid{grid-template-columns:repeat(3, 1fr);}
+  }
+
+  /* ---------- La tecnología: diagrama de flujo ---------- */
+  .flow{display:flex; flex-direction:column; border-left:2px solid var(--border); margin-left:6px;}
+  .flow-item{position:relative; padding:16px 0 16px 28px;}
+  .flow-item::before{content:""; position:absolute; left:-7px; top:22px; width:12px; height:12px; border-radius:50%; background:var(--gold); border:2px solid var(--bg);}
+  .flow-item .fl-label{font-family:var(--font-d); font-weight:600; font-size:16px; color:var(--white);}
+  .flow-item .fl-sub{font-size:13.5px; color:var(--muted); margin-top:3px;}
+
+  @media (min-width:1000px){
+    .flow{flex-direction:row; flex-wrap:wrap; border-left:none; margin-left:0; border-top:2px solid var(--border); margin-top:6px;}
+    .flow-item{flex:1; min-width:140px; padding:30px 12px 10px; text-align:center;}
+    .flow-item::before{left:50%; top:-7px; transform:translateX(-50%);}
+  }
+
+  /* ---------- Cómo funciona ---------- */
+  .como-funciona { background-color: var(--surface-3);;}
+  .como-grid{display:grid; grid-template-columns:1fr; gap:44px; align-items:start;}
+  .steps{display:flex; flex-direction:column; gap:0;}
+  .step{
+    display:grid; grid-template-columns:auto 1fr; gap:22px;
+    padding:30px 0; border-top:1px solid var(--border-2);
+  }
+  .step:last-child{border-bottom:1px solid var(--border-2);}
+  .step-num{
+    width:44px; height:44px; border-radius:50%; background:var(--surface); border:1px solid var(--border-3);
+    display:flex; align-items:center; justify-content:center; font-family:var(--font-d); font-weight:600; color:var(--gold);
+  }
+  .step-img{width:32px; height:32px; object-fit:contain; margin-bottom:10px;}
+  .step h3{font-size:20px; margin-bottom:8px;}
+  .step p{color:var(--muted); font-size:15px; line-height:1.6; max-width:60ch;}
+
+  .como-photo{
+    width:100%; aspect-ratio:4/5; border-radius:var(--r-lg); overflow:hidden;
+    background:var(--surface); border:1px solid var(--border);
+  }
+  .como-photo img{width:100%; height:100%; object-fit:cover; display:block;}
+
+  @media (min-width:900px){
+    .como-grid{grid-template-columns:1.30fr 0.85fr;}
+    .como-photo{position:sticky; top:110px;}
+  }
+
+  /* ---------- Funcionalidades ---------- */
+  .features{background:var(--surface-2);}
+  .feat-grid{display:grid; grid-template-columns:1fr; gap:20px;}
+  .feat-card{background:var(--surface); border:1px solid var(--border); border-radius:var(--r-lg); padding:28px;}
+  .feat-ico{width:46px; height:46px; margin-bottom:20px;}
+  .feat-card h3{font-size:18px; margin-bottom:10px;}
+  .feat-card ul{display:flex; flex-direction:column; gap:8px; margin-top:14px;}
+  .feat-card li{font-size:13.5px; color:var(--muted); padding-left:16px; position:relative; line-height:1.5;}
+  .feat-card li::before{content:""; position:absolute; left:0; top:8px; width:5px; height:5px; border-radius:50%; background:var(--gold);}
+
+  @media (min-width:768px){ .feat-grid{grid-template-columns:repeat(2, 1fr);} }
+  @media (min-width:1200px){ .feat-grid{grid-template-columns:repeat(4, 1fr);} }
+
+  /* ---------- Vista de producto ---------- */
+  .product-frame{
+    background:var(--surface-2); border:1px solid var(--border); border-radius:var(--r-lg);
+    overflow:hidden; box-shadow:0 40px 80px -30px rgba(0,0,0,0.6);
+  }
+  .product-topbar{display:flex; align-items:center; justify-content:space-between; padding:16px 22px; background:var(--surface); border-bottom:1px solid var(--border);}
+  .product-topbar .dots{display:flex; gap:6px;}
+  .product-topbar .dots span{width:9px; height:9px; border-radius:50%; background:rgba(255,255,255,0.18);}
+  .product-topbar .who{width:26px; height:26px; border-radius:50%; background:var(--gold);}
+  .product-layout{display:grid; grid-template-columns:minmax(0,1fr);}
+  .p-side{display:none; background:var(--surface-2); border-right:1px solid var(--border); padding:24px 14px;}
+  .p-side .item{display:flex; align-items:center; gap:10px; padding:10px 12px; border-radius:10px; font-size:13px; color:var(--muted); margin-bottom:4px;}
+  .p-side .item.on{background:var(--surface); color:var(--white);}
+  .p-side .dot{width:8px; height:8px; border-radius:50%; background:currentColor; opacity:.6;}
+  .p-main{padding:26px 22px; min-width:0; overflow:hidden;}
+  .p-cards{display:grid; grid-template-columns:repeat(2,1fr); gap:14px; margin-bottom:22px;}
+  .p-card{background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:16px;}
+  .p-card .k{font-size:11px; color:var(--muted); margin-bottom:6px;}
+  .p-card .v{font-family:var(--font-d); font-weight:600; font-size:22px; color:var(--white);}
+  .p-card .v.g{color:var(--green);}
+  .p-card .v.o{color:var(--orange);}
+  .charts-row{display:grid; grid-template-columns:1fr; gap:14px;}
+  .chart-card{background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px;}
+  .chart-card h4{font-family:var(--font-b); font-weight:700; font-size:13px; color:var(--white); margin-bottom:16px;}
+  .bars{display:flex; align-items:flex-end; gap:16px; height:130px;}
+  .bars .grp{display:flex; gap:4px; align-items:flex-end; height:100%; flex:1; justify-content:center;}
+  .bars .grp i{width:9px; border-radius:2px 2px 0 0; display:block;}
+  .lbls{display:flex; justify-content:space-around; margin-top:10px; font-size:10px; color:var(--muted);}
+  .rank{display:flex; flex-direction:column; gap:10px;}
+  .rank-row{display:flex; align-items:center; gap:10px;}
+  .rank-row .rl{width:28px; font-size:11px; color:var(--muted);}
+  .rank-row .rt{flex:1; height:12px; background:var(--surface-2); border-radius:4px; overflow:hidden;}
+  .rank-row .rt i{display:block; height:100%; border-radius:4px;}
+  .rank-row .rv{width:32px; font-size:11px; color:var(--text); text-align:right;}
+
+  @media (min-width:860px){
+    .product-layout{grid-template-columns:200px minmax(0,1fr);}
+    .p-side{display:block;}
+    .charts-row{grid-template-columns:1.2fr 1fr;}
+  }
+
+  /* ---------- Dashboard (panel claro dentro del mockup) ---------- */
+  .p-side .item.on{background:var(--gold); color:var(--bg); border-radius:0 var(--r-pill) var(--r-pill) 0; font-weight:700;}
+  .p-main{background:#FFFFFF;}
+
+  .pd-head{display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px; margin-bottom:22px;}
+  .pd-title{font-family:var(--font-d); font-weight:700; font-size:20px; color:#111827; margin:0;}
+  .pd-head .status-line{margin-bottom:0; color:#6B7280;}
+  .pd-head .status-dot{box-shadow:0 0 0 3px rgba(111,190,93,0.18);}
+
+  .pd-kpis{display:grid; grid-template-columns:minmax(0,1fr); gap:14px; margin-bottom:16px;}
+  .pd-kpi{background:#FFFFFF; border:1px solid #E4E7EB; border-left:4px solid var(--kc); border-radius:10px; padding:16px 18px; display:flex; flex-direction:column; gap:9px; min-width:0;}
+  .pd-kpi .lbl{font-family:var(--font-b); font-weight:700; font-size:10.5px; letter-spacing:.5px; text-transform:uppercase; color:var(--kc);}
+  .pd-kpi .row{display:flex; align-items:center; gap:10px;}
+  .pd-kpi .ic{width:32px; height:32px; border-radius:8px; background:var(--kbg); display:flex; align-items:center; justify-content:center; color:var(--kc); flex:none;}
+  .pd-kpi .num{font-family:var(--font-d); font-weight:700; font-size:23px; color:#111827;}
+  .pd-kpi .cap{font-family:var(--font-b); font-size:10.5px; color:#9CA3AF;}
+
+  .pd-blocks{display:grid; grid-template-columns:minmax(0,1fr); gap:14px; margin-bottom:16px; align-items:start;}
+  .pd-card{background:#FFFFFF; border:1px solid #E4E7EB; border-radius:14px; padding:16px 18px; min-width:0;}
+  .pd-card h5{font-family:var(--font-b); font-weight:700; font-size:13px; color:#111827; margin:0;}
+
+  .pd-exc-head{display:flex; align-items:center; justify-content:space-between; margin-bottom:6px;}
+  .pd-exc-count{font-size:10.5px; font-weight:700; color:#9C6B0A; background:#FBEFD9; padding:3px 9px; border-radius:var(--r-pill);}
+  .pd-exc-row{display:flex; align-items:center; justify-content:space-between; gap:12px; padding:7px 0; border-top:1px solid #EEF0F3;}
+  .pd-exc-row .t{font-family:var(--font-b); font-weight:700; font-size:12.5px; color:#111827;}
+  .pd-exc-row .s{font-family:var(--font-b); font-size:11px; color:#6B7280;}
+  .pd-exc-row .amt{font-family:var(--font-b); font-weight:700; font-size:13px;}
+  .pd-exc-link{display:block; text-align:center; font-size:11.5px; color:#B7873C; padding-top:6px; margin-top:2px; border-top:1px solid #EEF0F3;}
+
+  .pd-avance-head{display:flex; align-items:baseline; justify-content:space-between; margin-bottom:9px;}
+  .pd-avance-head span{font-family:var(--font-b); font-size:11px; color:#9CA3AF;}
+  .pd-avance-rows{display:flex; flex-direction:column; gap:7px;}
+  .pd-avance-row{display:flex; align-items:center; gap:8px;}
+  .pd-avance-row .m{width:28px; font-family:var(--font-b); font-size:11px; color:#6B7280;}
+  .pd-avance-row .track{flex:1; height:10px; background:#EEF0F3; border-radius:4px; overflow:hidden;}
+  .pd-avance-row .track i{display:block; height:100%; border-radius:4px;}
+  .pd-avance-row .v{width:28px; font-family:var(--font-b); font-size:11px; color:#111827;}
+
+  .pd-recientes-row{display:grid; grid-template-columns:minmax(0,1fr) 40px auto; align-items:center; gap:8px; font-family:var(--font-b); font-size:12px; color:#111827; padding-top:6px; border-top:1px solid #EEF0F3;}
+  .pd-recientes-row:first-of-type{padding-top:0; border-top:none;}
+  .pd-recientes-row .d{color:#6B7280; text-align:center;}
+  .pd-recientes-row > span:first-child{white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+
+  .pd-pill{font-weight:700; padding:2px 9px; border-radius:var(--r-pill); font-size:10.5px; white-space:nowrap;}
+  .pd-pill.ok{color:#1E7A4C; background:#E6F4EA;}
+  .pd-pill.proc{color:#6D28D9; background:#EFEAFE;}
+  .pd-pill.pend{color:#B5651D; background:#FDF0E1;}
+  .pd-pill.exc{color:#9C6B0A; background:#FBEFD9;}
+  .pd-pill.inc{color:#6B7280; background:#EEF0F3;}
+
+  .pd-detalle-sub{font-family:var(--font-b); font-size:11px; color:#9CA3AF; margin-top:1px;}
+  .pd-mini-row{display:flex; gap:8px; margin-top:10px;}
+  .pd-mini{flex:1; background:#F6F8FA; border-radius:8px; padding:9px 10px; display:flex; flex-direction:column; gap:5px;}
+  .pd-mini .top{display:flex; align-items:center; gap:6px;}
+  .pd-mini .ic{width:20px; height:20px; border-radius:6px; display:flex; align-items:center; justify-content:center; flex:none;}
+  .pd-mini .num{font-family:var(--font-d); font-weight:700; font-size:14px; color:#111827;}
+  .pd-mini .cap{font-family:var(--font-b); font-size:9.5px; color:#9CA3AF;}
+
+  .pd-table-card{background:#FFFFFF; border:1px solid #E4E7EB; border-radius:14px; padding:14px 16px 16px; min-width:0;}
+  .pd-table-controls{display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:10px; flex-wrap:wrap;}
+  .pd-entries{display:flex; align-items:center; gap:8px; font-family:var(--font-b); font-size:12px; color:#4B5563;}
+  .pd-entries .sel{padding:4px 9px; border:1px solid #D9DCE1; border-radius:6px; display:flex; align-items:center; gap:4px; color:#111827;}
+  .pd-search{padding:6px 12px; border:1px solid #D9DCE1; border-radius:8px; font-family:var(--font-b); font-size:12px; color:#9CA3AF; width:170px;}
+  .pd-scroll-hint{display:none; font-family:var(--font-b); font-size:11px; color:#9CA3AF; margin-bottom:8px;}
+  .pd-table-scroll{overflow-x:auto; -webkit-overflow-scrolling:touch; min-width:0;}
+  .pd-table{min-width:760px; width:100%; border-collapse:collapse; font-family:var(--font-b);}
+  .pd-table th{text-align:left; font-weight:700; font-size:11.5px; color:#374151; padding:0 10px 8px 0; border-bottom:2px solid #EEF0F3; white-space:nowrap;}
+  .pd-table td{font-size:12px; color:#111827; padding:7px 10px 7px 0; border-top:1px solid #F2F3F5; white-space:nowrap;}
+  .pd-table tbody tr:nth-child(even){background:#FAFBFC;}
+  .pd-table td.muted{color:#4B5563;}
+  .pd-table td.actions{color:#9CA3AF; font-size:12.5px;}
+  .pd-table-foot{display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; padding-top:10px; border-top:1px solid #EEF0F3; margin-top:4px;}
+  .pd-table-foot .info{font-family:var(--font-b); font-size:11.5px; color:#6B7280;}
+  .pd-pagi{display:flex; align-items:center; gap:6px; font-family:var(--font-b); font-size:11.5px; color:#4B5563;}
+  .pd-pagi span{padding:4px 9px; border:1px solid #D9DCE1; border-radius:6px;}
+  .pd-pagi span.active{background:var(--bg); color:#fff; font-weight:700; border-color:var(--bg);}
+
+  @media (max-width:699px){
+    .pd-scroll-hint{display:block;}
+  }
+  @media (min-width:600px){
+    .pd-kpis{grid-template-columns:repeat(2,minmax(0,1fr));}
+  }
+  @media (min-width:700px){
+    .pd-blocks{grid-template-columns:repeat(2,minmax(0,1fr));}
+  }
+  @media (min-width:1000px){
+    .pd-kpis{grid-template-columns:repeat(4,minmax(0,1fr));}
+  }
+
+  .demo-note{font-size:12px; color:var(--muted); margin-top:12px;}
+
+  .status-line{display:flex; align-items:center; gap:8px; font-size:12px; color:var(--muted); margin-bottom:18px;}
+  .status-dot{width:7px; height:7px; border-radius:50%; background:var(--green); box-shadow:0 0 0 3px rgba(111,190,93,0.18); flex:none;}
+
+  .attention-card{background:var(--surface); border:1px solid var(--gold); border-radius:12px; padding:18px 20px; margin-bottom:14px;}
+  .attention-head{display:flex; align-items:center; justify-content:space-between; margin-bottom:6px;}
+  .attention-head h4{font-family:var(--font-b); font-weight:700; font-size:14px; color:var(--white);}
+  .attention-count{font-size:11px; color:var(--gold); background:rgba(228,178,45,0.14); padding:3px 10px; border-radius:var(--r-pill); flex:none;}
+  .attention-row{display:flex; align-items:center; justify-content:space-between; gap:12px; padding:10px 0; border-top:1px solid var(--surface-2);}
+  .btn-review{
+    flex:none; padding:7px 16px; border-radius:var(--r-pill); border:1px solid var(--gold);
+    background:transparent; color:var(--gold); font-family:var(--font-b); font-weight:700; font-size:12px; cursor:pointer;
+  }
+  .attention-link{display:block; text-align:center; font-size:12.5px; color:var(--gold); margin-top:12px; padding-top:10px; border-top:1px solid var(--surface-2);}
+
+  .result-user{
+    margin-top:28px; padding:20px 24px; border-left:3px solid var(--gold);
+    background:var(--surface-2); border-radius:0 12px 12px 0;
+  }
+  .result-user p{font-size:15px; color:var(--text); line-height:1.6;}
+  .result-user strong{color:var(--white);}
+
+  .tx-card{background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px; margin-top:14px;}
+  .tx-card h4{font-family:var(--font-b); font-weight:700; font-size:13px; color:var(--white); margin-bottom:16px;}
+  .tx-date{font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:.5px; margin:16px 0 8px;}
+  .tx-date:first-of-type{margin-top:0;}
+  .tx-row{display:flex; align-items:center; justify-content:space-between; gap:12px; padding:10px 0; border-top:1px solid var(--surface-2);}
+  .tx-info{display:flex; align-items:center; gap:10px; min-width:0;}
+  .tx-dot{width:8px; height:8px; border-radius:50%; flex:none;}
+  .tx-name{font-size:13.5px; color:var(--white); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+  .tx-cat{font-size:11.5px; color:var(--muted); margin-top:2px;}
+  .tx-right{display:flex; flex-direction:column; align-items:flex-end; gap:4px; flex:none;}
+  .tx-amount{font-size:13.5px; color:var(--text); font-weight:600;}
+  .tx-status{font-size:10px; padding:2px 9px; border-radius:var(--r-pill);}
+  .tx-status.ok{color:var(--green); background:rgba(111,190,93,0.14);}
+  .tx-status.pend{color:var(--orange); background:rgba(232,163,80,0.16);}
+
+  /* ---------- Confianza ---------- */
+  .trust-grid{display:grid; grid-template-columns:1fr; gap:18px;}
+  .trust-item{display:flex; gap:16px; align-items:flex-start; padding:22px 0; border-top:1px solid var(--border);}
+  .trust-item .ico{width:38px; height:38px; flex:none; border-radius:10px; background:var(--surface); border:1px solid var(--border); display:flex; align-items:center; justify-content:center;}
+  .trust-item h3{font-size:16px; margin-bottom:6px;}
+  .trust-item p{font-size:14.5px; color:var(--muted); line-height:1.6;}
+
+  @media (min-width:768px){ .trust-grid{grid-template-columns:repeat(2, 1fr); column-gap:40px;} }
+
+  /* ---------- CTA final ---------- */
+  .cta-final{
+    background:linear-gradient(180deg, var(--surface) 0%, var(--surface-2) 100%);
+    border-top:1px solid var(--border); border-bottom:1px solid var(--border);
+    text-align:center;
+  }
+  .cta-final h2{font-size:32px; max-width:620px; margin:0 auto;}
+  .cta-final p{color:var(--muted); font-size:16px; margin-top:16px;}
+  .cta-final .cta-secondary{font-size:13px; color:var(--muted); opacity:.8; margin-top:8px;}
+  .cta-final .hero-actions{justify-content:center; margin-top:30px;}
+
+  @media (min-width:768px){ .cta-final h2{font-size:40px;} }
+
+  /* ---------- Footer ---------- */
+  footer{padding:56px 0 40px;}
+  .foot-top{display:flex; flex-direction:column; gap:28px; padding-bottom:32px; border-bottom:1px solid var(--border);}
+  .foot-brand p{color:var(--muted); font-size:14px; margin-top:10px; max-width:40ch; line-height:1.6;}
+  .foot-cols{display:grid; grid-template-columns:repeat(2,1fr); gap:24px;}
+  .foot-cols h4{font-size:13px; color:var(--white); margin-bottom:12px; font-family:var(--font-b); font-weight:700;}
+  .foot-cols a{display:block; font-size:13.5px; color:var(--muted); padding:5px 0;}
+  .foot-bottom{display:flex; flex-direction:column; gap:10px; padding-top:24px; font-size:12.5px; color:var(--muted);}
+
+  @media (min-width:768px){
+    .foot-top{flex-direction:row; justify-content:space-between; align-items:flex-start;}
+    .foot-cols{grid-template-columns:repeat(3,1fr); gap:40px;}
+    .foot-bottom{flex-direction:row; justify-content:space-between;}
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap">
+    <a class="brand" href="#top">
+      Bank
+    </a>
+
+    <div class="nav-right">
+      <div class="nav-links">
+        <a href="#necesidad">Por qué Bank</a>
+        <a href="#tecnologia">Tecnología</a>
+        <a href="#como-funciona">Cómo funciona</a>
+        <a href="#capacidades">Capacidades</a>
+        <a href="#producto">Producto</a>
+      </div>
+      <a class="btn btn-primary nav-cta" href="">Empezar</a>
+    </div>
+
+    <button class="hamburger" id="hamburger" aria-label="Abrir menú" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="#necesidad">Por qué Bank</a>
+      <a href="#tecnologia">Tecnología</a>
+      <a href="#como-funciona">Cómo funciona</a>
+      <a href="#capacidades">Capacidades</a>
+      <a href="#producto">Producto</a>
+      <a class="btn btn-primary" href="#cta">Empezar</a>
+    </div>
+  </div>
+</nav>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg">
+      <img src="assets/001.jpg" alt="Equipo revisando información financiera">
+    </div>
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <span class="kicker reveal">Tecnología especializada para procesos financieros</span>
+        <h1 class="reveal">De la información financiera <span class="hl">al control.</span></h1>
+        <p class="lede reveal">Bank utiliza tecnología especializada para resolver y automatizar procesos financieros y contables de empresas y negocios, comenzando por la conciliación bancaria.</p>
+        <p class="hero-sub reveal">Conecta y procesa información bancaria y contable para identificar coincidencias, diferencias y excepciones, y convertirlas en información clara para el control financiero.</p>
+        <div class="hero-actions reveal">
+          <a class="btn btn-primary" href="#tecnologia">Ver la tecnología</a>
+          <a class="btn btn-secondary" href="#producto">Ver el dashboard</a>
+        </div>
+      </div>
+      <div class="hero-visual reveal">
+        <div class="device device--photo">
+          <div class="device-photo">
+            <img src="assets/chica_off5.jpg" alt="compu hero Bank">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NECESIDAD EMPRESARIAL -->
+  <section class="problem" id="necesidad">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <h2>Cuando procesar la información financiera sigue siendo manual</h2>
+        <p>Las empresas generan información bancaria y contable desde diferentes fuentes. Cuando esa información debe compararse y organizarse manualmente, el proceso consume tiempo, dificulta el seguimiento y puede ocultar inconsistencias hasta el momento del cierre.</p>
+      </div>
+      <div class="problem-grid">
+        <div class="problem-card reveal">
+          <img class="problem-img" src="assets/Laptop003.jpg" alt="">
+          <div class="stat">Tiempo</div>
+          <h3>que se va en tareas operativas</h3>
+          <p>Cuando la información debe compararse a mano, cada cuenta nueva suma más carga operativa al proceso — tiempo que no se destina a análisis.</p>
+        </div>
+        <div class="problem-card reveal">
+          <img class="problem-img" src="assets/Laptop002.jpg" alt="">
+          <div class="stat">Revisión</div>
+          <h3>que depende de hojas de cálculo</h3>
+          <p>Sin un proceso consistente, la revisión recae en tareas repetitivas y en el criterio de quien la ejecuta cada mes.</p>
+        </div>
+        <div class="problem-card reveal">
+          <img class="problem-img" src="assets/Laptop004.jpg" alt="">
+          <div class="stat">Diferencias</div>
+          <h3>difíciles de detectar a tiempo</h3>
+          <p>Pagos duplicados, comisiones olvidadas o depósitos sin registrar pueden pasar inadvertidos hasta que ya afectan el cierre.</p>
+        </div>
+      </div>
+      <!-- <p class="problem-note reveal">Para quien realiza la conciliación, esto se traduce en horas de revisión y seguimiento manual.</p> -->
+    </div>
+  </section>
+
+  <!-- LA TECNOLOGÍA -->
+  <section id="tecnologia">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <h2>Una capa tecnológica entre la información y la operación financiera</h2>
+        <p>Bank es una solución tecnológica especializada para empresas y negocios que necesitan procesar, automatizar y controlar procesos financieros y contables. Conecta información bancaria y contable, aplica reglas configurables y transforma el resultado en información estructurada para revisión y control.</p>
+      </div>
+      <div class="flow">
+        <div class="flow-item reveal">
+          <div class="fl-label">Fuentes de información</div>
+          <div class="fl-sub">Banco / registros contables</div>
+        </div>
+        <div class="flow-item reveal">
+          <div class="fl-label">Integración</div>
+          <div class="fl-sub">Carga por layout / sincronización</div>
+        </div>
+        <div class="flow-item reveal">
+          <div class="fl-label">Procesamiento</div>
+          <div class="fl-sub">Cruce de movimientos</div>
+        </div>
+        <div class="flow-item reveal">
+          <div class="fl-label">Reglas</div>
+          <div class="fl-sub">Fecha / monto / concepto / descripción</div>
+        </div>
+        <div class="flow-item reveal">
+          <div class="fl-label">Conciliación</div>
+          <div class="fl-sub">Coincidencias y diferencias</div>
+        </div>
+        <div class="flow-item reveal">
+          <div class="fl-label">Excepciones</div>
+          <div class="fl-sub">Movimientos que requieren revisión</div>
+        </div>
+        <div class="flow-item reveal">
+          <div class="fl-label">Usuario</div>
+          <div class="fl-sub">Análisis y acción</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CÓMO FUNCIONA -->
+  <section id="como-funciona" class="como-funciona">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <h2>Cómo funciona</h2>
+        <p>De la integración de datos a la conciliación automática, en tres pasos.</p>
+      </div>
+      <div class="como-grid">
+        <div class="steps">
+          <div class="step reveal">
+            <div class="step-num">1</div>
+            <div>
+              <img class="step-img" src="assets/paso-01.svg" alt="">
+              <h3>Conecta</h3>
+              <p>Bank reúne la información bancaria y contable mediante carga por layout o sincronización automática.</p>
+            </div>
+          </div>
+          <div class="step reveal">
+            <div class="step-num">2</div>
+            <div>
+              <img class="step-img" src="assets/paso-02.svg" alt="">
+              <h3>Configura</h3>
+              <p>Las reglas determinan cómo deben coincidir los movimientos según fecha, monto, concepto o descripción.</p>
+            </div>
+          </div>
+          <div class="step reveal">
+            <div class="step-num">3</div>
+            <div>
+              <img class="step-img" src="assets/paso-03.svg" alt="">
+              <h3>Procesa y concilia</h3>
+              <p>Bank cruza los registros, identifica coincidencias y separa las excepciones — tú revisas únicamente lo que requiere tu criterio.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="como-photo reveal">
+          <img src="assets/Equipo_revisando.jpg" alt="Equipo revisando el proceso de conciliación en Bank">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CAPACIDADES -->
+  <section class="features" id="capacidades">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <h2>Capacidades</h2>
+        <p>Cuatro capacidades tecnológicas que cubren todo el ciclo, de la integración de datos al reporte final.</p>
+      </div>
+      <div class="feat-grid">
+
+        <div class="feat-card reveal">
+          <svg class="feat-ico" viewBox="0 0 46 46" fill="none">
+            <rect x="6" y="14" width="34" height="22" rx="4" stroke="#1D63CA" stroke-width="2"/>
+            <path d="M6 20H40" stroke="#1D63CA" stroke-width="2"/>
+            <circle cx="13" cy="10" r="4" fill="#E4B22D"/>
+          </svg>
+          <h3>Integración</h3>
+          <ul>
+            <li>Gestión de cuentas</li>
+            <li>Conexión con Paybook entre Bank y el banco</li>
+            <li>Carga de movimientos por layout</li>
+            <li>Sincronización automática cuando corresponda</li>
+            <li>Exportación de transacciones</li>
+          </ul>
+        </div>
+
+        <div class="feat-card reveal">
+          <svg class="feat-ico" viewBox="0 0 46 46" fill="none">
+            <circle cx="23" cy="23" r="15" stroke="#E4B22D" stroke-width="2"/>
+            <path d="M23 15V23L28 27" stroke="#E4B22D" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          <h3>Procesamiento y automatización</h3>
+          <ul>
+            <li>Reglas generales de conciliación</li>
+            <li>Condiciones configurables</li>
+            <li>Reglas por fecha, monto, concepto o descripción</li>
+            <li>Historial de reglas</li>
+          </ul>
+        </div>
+
+        <div class="feat-card reveal">
+          <svg class="feat-ico" viewBox="0 0 46 46" fill="none">
+            <path d="M10 23L18 31L36 13" stroke="#6FBE5D" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <h3>Conciliación y control</h3>
+          <ul>
+            <li>Conciliación por cuenta</li>
+            <li>Identificación de pendientes / excepciones</li>
+            <li>Reporte de antigüedad</li>
+            <li>Resumen de conciliación</li>
+          </ul>
+        </div>
+
+        <div class="feat-card reveal">
+          <svg class="feat-ico" viewBox="0 0 46 46" fill="none">
+            <rect x="8" y="24" width="6" height="14" rx="1.5" fill="#1D63CA"/>
+            <rect x="20" y="16" width="6" height="22" rx="1.5" fill="#6FBE5D"/>
+            <rect x="32" y="9" width="6" height="29" rx="1.5" fill="#E8A350"/>
+          </svg>
+          <h3>Visibilidad</h3>
+          <ul>
+            <li>Dashboard</li>
+            <li>Conciliados vs. no conciliados</li>
+            <li>Vista por cuenta y periodo</li>
+            <li>Progreso</li>
+            <li>Reportes exportables</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- VISTA DE PRODUCTO -->
+  <section id="producto">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <h2>El resultado del procesamiento, en una sola vista</h2>
+        <p>Bank transforma cientos de movimientos procesados en una vista clara del estado de la conciliación: qué ya fue conciliado, qué permanece pendiente y qué requiere atención.</p>
+      </div>
+
+      <div class="product-frame reveal">
+        <div class="product-topbar">
+          <div class="dots"><span></span><span></span><span></span></div>
+          <div class="who"></div>
+        </div>
+        <div class="product-layout">
+          <div class="p-side">
+            <div class="item on">Dashboard</div>
+            <div class="item">Cuentas</div>
+            <div class="item">Reglas</div>
+            <div class="item">Conciliación</div>
+            <div class="item">Reportes</div>
+          </div>
+          <div class="p-main">
+
+            <div class="pd-head">
+              <h4 class="pd-title">Dashboard</h4>
+              <div class="status-line"><span class="status-dot"></span> Actualizado hace 4 minutos · Datos de demostración</div>
+            </div>
+
+            <div class="pd-kpis">
+              <div class="pd-kpi" style="--kc:#1E7A4C; --kbg:#E6F4EA;">
+                <span class="lbl">Conciliados este mes</span>
+                <div class="row">
+                  <div class="ic"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+                  <span class="num">1,095</span>
+                </div>
+                <span class="cap">Suma de las 3 categorías</span>
+              </div>
+              <div class="pd-kpi" style="--kc:#B5651D; --kbg:#FDF0E1;">
+                <span class="lbl">Pendientes de revisión</span>
+                <div class="row">
+                  <div class="ic"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+                  <span class="num">289</span>
+                </div>
+                <span class="cap">26.4% del total</span>
+              </div>
+              <div class="pd-kpi" style="--kc:#9C6B0A; --kbg:#FBEFD9;">
+                <span class="lbl">Excepciones abiertas</span>
+                <div class="row">
+                  <div class="ic"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+                  <span class="num">194</span>
+                </div>
+                <span class="cap">17.7% del total</span>
+              </div>
+              <div class="pd-kpi" style="--kc:#6D28D9; --kbg:#EFEAFE;">
+                <span class="lbl">Procesando</span>
+                <div class="row">
+                  <div class="ic"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg></div>
+                  <span class="num">612</span>
+                </div>
+                <span class="cap">55.9% del total</span>
+              </div>
+            </div>
+
+            <div class="pd-blocks">
+
+              <div class="pd-card">
+                <div class="pd-exc-head">
+                  <h5>Excepciones — Santander ····0092</h5>
+                  <span class="pd-exc-count">14</span>
+                </div>
+                <div class="pd-exc-row">
+                  <div>
+                    <div class="t">Comisión bancaria</div>
+                    <div class="s">Sin regla aplicable</div>
+                  </div>
+                  <span class="amt" style="color:#B5651D;">−$340</span>
+                </div>
+                <div class="pd-exc-row">
+                  <div>
+                    <div class="t">Depósito sin identificar</div>
+                    <div class="s">Sin coincidencia contable</div>
+                  </div>
+                  <span class="amt" style="color:#1E7A4C;">+$6,750</span>
+                </div>
+                <a class="pd-exc-link" href="#">Ver las 14 excepciones →</a>
+              </div>
+
+              <div class="pd-card">
+                <div class="pd-avance-head">
+                  <h5>Avance — cuenta seleccionada</h5>
+                  <span>Primer semestre 2026</span>
+                </div>
+                <div class="pd-avance-rows">
+                  <div class="pd-avance-row"><span class="m">Ene</span><div class="track"><i style="width:41%; background:#1D63CA;"></i></div><span class="v">40.8</span></div>
+                  <div class="pd-avance-row"><span class="m">Feb</span><div class="track"><i style="width:43%; background:#1E7A4C;"></i></div><span class="v">43.3</span></div>
+                  <div class="pd-avance-row"><span class="m">Mar</span><div class="track"><i style="width:83%; background:#B5651D;"></i></div><span class="v">83.0</span></div>
+                  <div class="pd-avance-row"><span class="m">Abr</span><div class="track"><i style="width:78%; background:#6D28D9;"></i></div><span class="v">78.5</span></div>
+                  <div class="pd-avance-row"><span class="m">May</span><div class="track"><i style="width:85%; background:#1D63CA;"></i></div><span class="v">85.2</span></div>
+                  <div class="pd-avance-row"><span class="m">Jun</span><div class="track"><i style="width:91%; background:#1E7A4C;"></i></div><span class="v">91.4</span></div>
+                </div>
+              </div>
+
+              <div class="pd-card">
+                <h5 style="margin-bottom:8px;">Movimientos recientes</h5>
+                <div class="pd-recientes-row">
+                  <span>Pago servicio — Luz y agua</span><span class="d">Hoy</span>
+                  <span class="pd-pill ok">Conciliado</span>
+                </div>
+                <div class="pd-recientes-row">
+                  <span>Nómina quincenal</span><span class="d">Ayer</span>
+                  <span class="pd-pill ok">Conciliado</span>
+                </div>
+                <div class="pd-recientes-row">
+                  <span>Cobro cliente — Factura 3312</span><span class="d">24/09</span>
+                  <span class="pd-pill proc">Procesando</span>
+                </div>
+              </div>
+
+              <div class="pd-card">
+                <h5>Detalle de la cuenta</h5>
+                <div class="pd-detalle-sub">Santander ····0092</div>
+                <div class="pd-mini-row">
+                  <div class="pd-mini">
+                    <div class="top">
+                      <div class="ic" style="background:#EFEAFE; color:#6D28D9;"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+                      <span class="num">4 min</span>
+                    </div>
+                    <span class="cap">Última sincronización</span>
+                  </div>
+                  <div class="pd-mini">
+                    <div class="top">
+                      <div class="ic" style="background:#FBEFD9; color:#9C6B0A;"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+                      <span class="num">14</span>
+                    </div>
+                    <span class="cap">De 194 totales</span>
+                  </div>
+                  <div class="pd-mini">
+                    <div class="top">
+                      <div class="ic" style="background:#FDF0E1; color:#B5651D;"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+                      <span class="num">$6,410</span>
+                    </div>
+                    <span class="cap">Diferencia contable/bancaria</span>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="pd-table-card">
+              <div class="pd-table-controls">
+                <div class="pd-entries"><span class="sel">10 <span style="font-size:9px;">▾</span></span> registros por página</div>
+                <div class="pd-search">Buscar...</div>
+              </div>
+              <span class="pd-scroll-hint">Desliza para ver más columnas →</span>
+              <div class="pd-table-scroll">
+                <table class="pd-table">
+                  <thead>
+                    <tr>
+                      <th>Cuenta ↕</th><th>Concepto ↕</th><th>Banco ↕</th><th>Antigüedad ↕</th>
+                      <th>Fecha ↕</th><th>Importe ↕</th><th>Estado ↕</th><th>Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>····0092</td><td>Comisión bancaria</td><td class="muted">Santander</td><td class="muted">3 días</td>
+                      <td class="muted">2026/09/25</td><td>−$340</td><td><span class="pd-pill exc">Excepción</span></td><td class="actions">⋮ 🗑</td>
+                    </tr>
+                    <tr>
+                      <td>····4521</td><td>Transferencia — Proveedor Alfa</td><td class="muted">BBVA</td><td class="muted">6 días</td>
+                      <td class="muted">2026/09/22</td><td>−$18,400</td><td><span class="pd-pill pend">Pendiente</span></td><td class="actions">⋮ 🗑</td>
+                    </tr>
+                    <tr>
+                      <td>····0092</td><td>Depósito sin identificar</td><td class="muted">Santander</td><td class="muted">2 días</td>
+                      <td class="muted">2026/09/26</td><td>+$6,750</td><td><span class="pd-pill exc">Excepción</span></td><td class="actions">⋮ 🗑</td>
+                    </tr>
+                    <tr>
+                      <td>····7783</td><td>Nómina quincenal</td><td class="muted">Banorte</td><td class="muted">1 día</td>
+                      <td class="muted">2026/09/27</td><td>−$142,300</td><td><span class="pd-pill ok">Conciliado</span></td><td class="actions">⋮ 🗑</td>
+                    </tr>
+                    <tr>
+                      <td>····0092</td><td>Pago servicio — Luz y agua</td><td class="muted">Santander</td><td class="muted">0 días</td>
+                      <td class="muted">2026/09/28</td><td>−$1,180</td><td><span class="pd-pill ok">Conciliado</span></td><td class="actions">⋮ 🗑</td>
+                    </tr>
+                    <tr>
+                      <td>····4521</td><td>Cobro cliente — Factura 3312</td><td class="muted">BBVA</td><td class="muted">4 días</td>
+                      <td class="muted">2026/09/24</td><td>+$54,200</td><td><span class="pd-pill proc">Procesando</span></td><td class="actions">⋮ 🗑</td>
+                    </tr>
+                    <tr>
+                      <td>····9110</td><td>Comisión por transferencia</td><td class="muted">HSBC</td><td class="muted">8 días</td>
+                      <td class="muted">2026/09/20</td><td>−$95</td><td><span class="pd-pill pend">Pendiente</span></td><td class="actions">⋮ 🗑</td>
+                    </tr>
+                    <tr>
+                      <td>····7783</td><td>Depósito — Cliente Beta</td><td class="muted">Banorte</td><td class="muted">5 días</td>
+                      <td class="muted">2026/09/23</td><td>+$12,600</td><td><span class="pd-pill ok">Conciliado</span></td><td class="actions">⋮ 🗑</td>
+                    </tr>
+                    <tr>
+                      <td>····0092</td><td>Cargo duplicado</td><td class="muted">Santander</td><td class="muted">10 días</td>
+                      <td class="muted">2026/09/18</td><td>−$3,400</td><td><span class="pd-pill proc">Procesando</span></td><td class="actions">⋮ 🗑</td>
+                    </tr>
+                    <tr>
+                      <td>····4521</td><td>Transferencia interna</td><td class="muted">BBVA</td><td class="muted">1 día</td>
+                      <td class="muted">2026/09/27</td><td>−$8,000</td><td><span class="pd-pill proc">Procesando</span></td><td class="actions">⋮ 🗑</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="pd-table-foot">
+                <span class="info">Mostrando 1 a 10 de 57 registros</span>
+                <div class="pd-pagi">
+                  <span>‹</span><span class="active">1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>›</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <p class="demo-note reveal">* Cifras de demostración del prototipo.</p>
+
+      <div class="result-user reveal">
+        <p><strong>El resultado para el usuario:</strong> en lugar de dedicar tiempo a revisar cada movimiento, el responsable financiero puede concentrarse en las excepciones y en la información que requiere análisis.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONFIANZA -->
+  <section>
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <h2>Control y trazabilidad para información financiera</h2>
+        <p>Bank incorpora mecanismos para controlar el acceso, registrar cambios y mantener trazabilidad sobre las reglas y ajustes realizados dentro del proceso.</p>
+      </div>
+      <div class="trust-grid">
+        <div class="trust-item reveal">
+          <div class="ico">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="5" y="10" width="14" height="10" rx="2" stroke="#E4B22D" stroke-width="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3" stroke="#E4B22D" stroke-width="2"/></svg>
+          </div>
+          <div>
+            <h3>Acceso controlado</h3>
+            <p>Cada persona ve solo las cuentas y módulos que le corresponden, con permisos claros por rol.</p>
+          </div>
+        </div>
+        <div class="trust-item reveal">
+          <div class="ico">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 3L5 6v6c0 5 3 8 7 9 4-1 7-4 7-9V6l-7-3Z" stroke="#1D63CA" stroke-width="2" stroke-linejoin="round"/></svg>
+          </div>
+          <div>
+            <h3>Trazabilidad completa</h3>
+            <p>Cada regla y cada ajuste queda registrado en un log — siempre se puede ver qué cambió y quién lo hizo.</p>
+          </div>
+        </div>
+        <div class="trust-item reveal">
+          <div class="ico">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 3V13" stroke="#6FBE5D" stroke-width="2" stroke-linecap="round"/><path d="M6 8L12 3L18 8" stroke="#6FBE5D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 15V19a2 2 0 0 0 2 2H17a2 2 0 0 0 2-2V15" stroke="#6FBE5D" stroke-width="2" stroke-linecap="round"/></svg>
+          </div>
+          <div>
+            <h3>Respaldo continuo</h3>
+            <p>Tu información contable y bancaria se mantiene sincronizada y respaldada, sin depender de un solo archivo.</p>
+          </div>
+        </div>
+        <div class="trust-item reveal">
+          <div class="ico">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="16" height="16" rx="3" stroke="#E8A350" stroke-width="2"/><path d="M8 12H16" stroke="#E8A350" stroke-width="2" stroke-linecap="round"/></svg>
+          </div>
+          <div>
+            <h3>Reportes exportables</h3>
+            <p>Descarga en cualquier momento el resumen de conciliación o el detalle de movimientos, sin pedirle nada a nadie más.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA FINAL -->
+  <section class="cta-final" id="cta">
+    <div class="wrap">
+      <h2 class="reveal">Menos procesamiento manual. Más control financiero.</h2>
+      <p class="reveal">Bank automatiza la conciliación y organiza la información para que tu equipo pueda concentrarse en las excepciones que necesitan criterio.</p>
+      <p class="cta-secondary reveal">Deja de perseguir diferencias al cierre de mes.</p>
+      <div class="hero-actions reveal">
+        <a class="btn btn-primary" href="#como-funciona">Ver cómo funciona</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <div class="foot-brand">
+        <a class="brand" href="#top">
+          Bank
+        </a>
+        <p>Tecnología especializada para procesar y conciliar información financiera y contable de empresas y negocios.</p>
+      </div>
+      <div class="foot-cols">
+        <div>
+          <h4>Producto</h4>
+          <a href="#tecnologia">Tecnología</a>
+          <a href="#como-funciona">Cómo funciona</a>
+          <a href="#capacidades">Capacidades</a>
+          <a href="#producto">Dashboard</a>
+        </div>
+        <div>
+          <h4>Empresa</h4>
+          <a href="#necesidad">Por qué Bank</a>
+          <a href="#cta">Contacto</a>
+        </div>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Bank. Proyecto conceptual de portafolio.</span>
+      <span>Diseñado y desarrollado por Francisco Gabriel Riquelme Olmedo</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  (function(){
+    var burger = document.getElementById('hamburger');
+    var menu = document.getElementById('mobileMenu');
+    function closeMenu(){
+      burger.classList.remove('open');
+      menu.classList.remove('open');
+      burger.setAttribute('aria-expanded', 'false');
+    }
+    burger.addEventListener('click', function(){
+      var isOpen = menu.classList.toggle('open');
+      burger.classList.toggle('open', isOpen);
+      burger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+    menu.querySelectorAll('a').forEach(function(a){
+      a.addEventListener('click', closeMenu);
+    });
+    window.addEventListener('resize', function(){
+      if(window.innerWidth >= 768) closeMenu();
+    });
+  })();
+</script>
+
+<script>
+  (function(){
+    var els = document.querySelectorAll('.reveal');
+    if(!('IntersectionObserver' in window)){
+      els.forEach(function(el){ el.classList.add('in'); });
+      return;
+    }
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          entry.target.classList.add('in');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+    els.forEach(function(el){ io.observe(el); });
+  })();
+</script>
+
+</body>
+</html>

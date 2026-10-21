@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GEFAO — Case Study · Francisco Gabriel Riquelme Olmedo</title>
+<meta name="description" content="Case Study: rediseño del sitio de Casa Editorial GEFAO, de sitio institucional a tienda digital de revistas y libros.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=Patua+One&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#1a1a18;
+  --gray:#5c5850;
+  --line:#e4e0d8;
+  --paper:#fdfcfa;
+  --panel:#ffffff;
+  --alt:#f6f4ef;
+  --accent:#8A6A12;
+  --accent2:#C49A2A;
+  --turq:#21AEAF;
+  --rojo:#C22D24;
+  --serif:'Fraunces',serif;
+  --sans:'Inter',sans-serif;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--paper);color:var(--ink);line-height:1.7;font-size:17px}
+.wrap{max-width:860px;margin:0 auto;padding:0 2rem}
+.wrap-wide{max-width:1080px;margin:0 auto;padding:0 2rem}
+img{max-width:100%;display:block;border-radius:4px}
+p{color:var(--gray);max-width:64ch}
+h1,h2,h3{font-family:var(--serif);color:var(--ink);line-height:1.15;font-weight:600}
+a{color:inherit}
+em{color:var(--ink);font-style:normal}
+strong{color:var(--ink)}
+
+/* topbar */
+.topbar{position:sticky;top:0;z-index:10;background:rgba(253,252,250,0.9);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.topbar-inner{max-width:1080px;margin:0 auto;padding:1.1rem 2rem;display:flex;justify-content:space-between;align-items:center;gap:1rem}
+.topbar-name{font-family:var(--serif);font-size:1rem;font-weight:600}
+.topbar-back{font-size:0.85rem;color:var(--gray);text-decoration:none;border-bottom:1px solid var(--line);white-space:nowrap}
+.progreso{position:absolute;left:0;bottom:-1px;height:2px;width:0;background:var(--accent2)}
+
+/* hero */
+.cs-hero{padding:5rem 0 3rem}
+.eyebrow{display:flex;gap:0.6rem;flex-wrap:wrap;margin-bottom:1.75rem}
+.pill{font-size:0.72rem;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;padding:0.3rem 0.8rem;border:1px solid var(--line);border-radius:20px;color:var(--gray)}
+.cs-hero h1{font-size:clamp(2rem,4.2vw,3.1rem);letter-spacing:-0.01em;margin-bottom:1.25rem;max-width:26ch}
+.lead{font-size:1.15rem;color:var(--ink);max-width:56ch;margin-bottom:1.25rem;font-weight:400;opacity:.85}
+.meta-row{display:flex;flex-direction:column;gap:1rem;padding:2rem 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-top:1.25rem}
+.meta-item{display:flex;gap:2rem;align-items:baseline}
+.meta-label{width:130px;flex-shrink:0;font-size:0.68rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--gray)}
+.meta-value{font-size:0.92rem;font-weight:500}
+.hero-shot{margin-top:3rem;border:1px solid var(--line);border-radius:8px;overflow:hidden;box-shadow:0 30px 60px -20px rgba(0,0,0,0.15)}
+
+/* sections */
+.section{padding:4.5rem 0}
+.section-alt{background:var(--alt)}
+.kicker{font-size:0.72rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--accent);font-weight:700;margin-bottom:0.9rem}
+.section h2{font-size:clamp(1.5rem,2.6vw,2rem);margin-bottom:1.5rem;max-width:22ch}
+.section p + p{margin-top:1.1rem}
+.figure{margin:2.5rem 0}
+.figure img{border:1px solid var(--line);background:var(--panel)}
+.figure-cap{font-size:0.82rem;color:var(--gray);margin-top:0.75rem;font-style:italic}
+.qa{border-left:2px solid var(--accent2);padding-left:1.5rem;margin:1.75rem 0}
+.qa-q{font-family:var(--serif);font-size:1.15rem;margin-bottom:0.4rem;color:var(--ink)}
+.qa-a{color:var(--gray);font-size:0.95rem}
+.section-shot{margin:3rem 0;border:1px solid var(--line);border-radius:8px;overflow:hidden;box-shadow:0 30px 60px -20px rgba(0,0,0,0.15)}
+.pullquote{font-family:var(--serif);font-size:clamp(1.4rem,2.6vw,1.9rem);line-height:1.4;color:var(--ink);max-width:34ch;margin:2.5rem auto;text-align:center;font-weight:500}
+.pullquote span{color:var(--accent)}
+
+/* capturas pendientes */
+.ph.falta{min-height:320px;background:repeating-linear-gradient(45deg,var(--alt),var(--alt) 12px,#efece4 12px,#efece4 24px);display:flex;align-items:center;justify-content:center;box-shadow:none}
+.ph.falta::after{content:'Captura pendiente · ' attr(data-file);font-size:.85rem;color:var(--gray);background:var(--panel);padding:.5rem .9rem;border-radius:20px;border:1px solid var(--line)}
+
+/* audiencia cards */
+.audiencia-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin:2.25rem 0}
+.audiencia-grid.tres{grid-template-columns:repeat(3,1fr);gap:1.25rem}
+.audiencia-card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:1.75rem}
+.audiencia-card.destacada{border-color:var(--accent2);box-shadow:0 0 0 1px var(--accent2) inset}
+.audiencia-tag{font-size:0.68rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--accent);font-weight:700;margin-bottom:0.6rem}
+.audiencia-card h3{font-size:1.2rem;margin-bottom:1rem}
+.audiencia-list{list-style:none;display:flex;flex-direction:column;gap:0.65rem}
+.audiencia-list li{font-size:0.9rem;color:var(--gray);padding-bottom:0.65rem;border-bottom:1px solid var(--line)}
+.audiencia-list li:last-child{border-bottom:none;padding-bottom:0}
+
+/* diagrams */
+.diagram-wrap{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:2rem;margin:2rem 0;overflow-x:auto}
+.diagram-wrap svg{display:block;width:100%;height:auto;min-width:640px}
+
+/* wireframe compare */
+.wf-compare{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin:2rem 0}
+.wf-card{border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--panel)}
+.wf-card-label{padding:0.85rem 1.1rem;border-bottom:1px solid var(--line);font-size:0.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0.04em}
+.wf-card.before .wf-card-label{color:#b5651d;background:#fdf0e1}
+.wf-card.after .wf-card-label{color:#1e7a4c;background:#e6f4ea}
+.wf-body{padding:1.5rem}
+.wf-box{border-radius:6px;padding:0.9rem;margin-bottom:0.6rem;font-size:0.78rem;text-align:center;color:var(--gray);background:var(--alt)}
+.wf-box.big{padding:2.2rem 0.9rem;font-weight:700;color:var(--ink)}
+.wf-box.accent{background:rgba(196,154,42,0.12);color:var(--accent);font-weight:700}
+.wf-box.tachado{text-decoration:line-through;text-decoration-color:#b5651d}
+.wf-box.small-row{display:flex;gap:0.5rem;background:none;padding:0}
+.wf-box.small-row div{flex:1;background:var(--alt);border-radius:6px;padding:0.6rem;font-size:0.7rem}
+.menu-list{list-style:none;display:flex;flex-direction:column;gap:.45rem}
+.menu-list li{font-size:.82rem;padding:.55rem .8rem;border-radius:6px;background:var(--alt);color:var(--gray);display:flex;justify-content:space-between;gap:.5rem}
+.menu-list li small{font-size:.68rem;text-transform:uppercase;letter-spacing:.06em;color:#b5651d;font-weight:700}
+.menu-list li.nuevo small{color:#1e7a4c}
+.menu-list li.fuera{text-decoration:line-through;text-decoration-color:#d9b9a0;opacity:.75}
+
+/* contraste */
+.contraste{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin:2rem 0}
+.contraste-card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:1.5rem;display:flex;align-items:center;gap:1.25rem}
+.contraste-muestra{font-family:'Patua One',serif;font-size:2.4rem;line-height:1;width:84px;height:84px;border-radius:8px;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;flex-shrink:0;background:#fff}
+.contraste-card h3{font-size:1.05rem;margin-bottom:.25rem}
+.contraste-card p{font-size:.88rem}
+.estado{display:inline-block;font-size:.68rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:.2rem .55rem;border-radius:20px;margin-bottom:.4rem}
+.estado.no{background:#fdf0e1;color:#b5651d}
+.estado.si{background:#e6f4ea;color:#1e7a4c}
+
+/* iteraciones */
+.iter-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin:2.25rem 0}
+.iter-card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:1.5rem;display:flex;flex-direction:column;gap:.75rem}
+.iter-card h3{font-size:1.1rem}
+.iter-paso{font-size:.86rem;color:var(--gray);line-height:1.6;max-width:none}
+.iter-paso b{display:block;font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;margin-bottom:.15rem}
+.iter-paso.antes b{color:#b5651d}
+.iter-paso.despues b{color:#1e7a4c}
+
+/* código */
+.code{background:#1a1a18;color:#e8e4da;border-radius:10px;padding:1.5rem 1.75rem;margin:2rem 0;overflow-x:auto;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.84rem;line-height:1.75}
+.code .c{color:#8a8578}
+.code .k{color:#21AEAF}
+.code .s{color:#E2C46A}
+.code .n{color:#F09E8F}
+.auto-list{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:.75rem 1.5rem;margin:1.5rem 0}
+.auto-list li{font-size:.92rem;color:var(--gray);padding-left:1.6rem;position:relative}
+.auto-list li::before{content:'';position:absolute;left:0;top:.45em;width:14px;height:8px;border-left:2px solid var(--turq);border-bottom:2px solid var(--turq);transform:rotate(-45deg)}
+
+/* results grid */
+.result-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.5rem 1.5rem;margin:2.5rem 0}
+.result-item{border-top:2px solid var(--ink);padding-top:1rem}
+.result-num{font-family:var(--serif);font-size:2rem}
+.result-label{font-size:0.85rem;color:var(--gray);margin-top:0.3rem}
+.shots-grid{display:grid;grid-template-columns:2fr 1fr;gap:1.5rem;margin-top:2.5rem}
+.shots-grid .tall{grid-row:span 2}
+.shots-grid .figure{margin:0}
+
+footer.cs-footer{padding:5rem 0 4rem;text-align:center;border-top:1px solid var(--line)}
+footer.cs-footer h2{font-size:clamp(1.6rem,3vw,2.2rem);margin-bottom:1rem}
+.cs-footer-links{display:flex;gap:1.5rem;justify-content:center;margin-top:2rem;flex-wrap:wrap}
+.cs-footer-links a{font-size:0.9rem;text-decoration:none;border-bottom:1px solid var(--ink);padding-bottom:2px}
+
+@media(max-width:900px){
+  .audiencia-grid.tres,.iter-grid{grid-template-columns:1fr}
+}
+@media(max-width:768px){
+  .meta-item{flex-direction:column;gap:0.3rem}
+  .wf-compare,.contraste{grid-template-columns:1fr}
+  .audiencia-grid{grid-template-columns:1fr}
+  .result-grid{grid-template-columns:1fr 1fr}
+  .shots-grid{grid-template-columns:1fr}
+  .shots-grid .tall{grid-row:auto}
+  .auto-list{grid-template-columns:1fr}
+  .diagram-wrap{padding:1.25rem}
+}
+@media(max-width:480px){
+  .wrap,.wrap-wide,.topbar-inner{padding-left:1rem;padding-right:1rem}
+  .topbar-name{font-size:.9rem}
+  .result-grid{grid-template-columns:1fr}
+  .contraste-card{flex-direction:column;align-items:flex-start}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <span class="topbar-name">Francisco Gabriel Riquelme Olmedo</span>
+    <a href="../index.html" class="topbar-back">← Portafolio</a>
+  </div>
+  <div class="progreso" id="progreso" aria-hidden="true"></div>
+</div>
+
+<!-- HERO -->
+<header class="cs-hero wrap">
+  <div class="eyebrow">
+    <span class="pill">B2C</span>
+    <span class="pill">Rediseño Web</span>
+    <span class="pill">E-commerce editorial</span>
+    <span class="pill">UX/UI</span>
+    <span class="pill">Diseño editorial</span>
+    <span class="pill">2 semanas</span>
+  </div>
+  <h1>Convertí el sitio institucional de una revista con 30 años de historia en una tienda digital.</h1>
+  <p class="lead">La revista GEFAO dejó de imprimirse. Rediseñé la experiencia completa para que comprar, publicar y leer una edición digital fuera igual de simple.</p>
+  <div class="meta-row">
+    <div class="meta-item"><div class="meta-label">Mi rol</div><div class="meta-value">Product Designer y diseñador editorial de la revista. En el sitio, único diseñador: auditoría del sitio anterior, arquitectura, flujo de compra, design system, interfaz y desarrollo front-end. En la revista: portada e interiores de cada edición.</div></div>
+    <div class="meta-item"><div class="meta-label">Alcance</div><div class="meta-value">4 páginas (home, detalle, carrito y cuenta), catálogo de 24 revistas y 11 libros, design system, responsive y catálogo administrable</div></div>
+    <div class="meta-item"><div class="meta-label">Herramientas</div><div class="meta-value">Figma · Claude · VS Code · Illustrator · Photoshop · HTML · CSS</div></div>
+    <div class="meta-item"><div class="meta-label">Tipo de proyecto</div><div class="meta-value">Rediseño de un sitio existente — prototipo funcional navegable</div></div>
+  </div>
+  <div class="hero-shot ph" data-file="img/001_hero.jpg"><img src="img/001_hero.jpg" alt="Hero del nuevo sitio de Casa Editorial GEFAO" loading="lazy" onerror="this.parentNode.classList.add('falta');this.remove()"></div>
+</header>
+
+<!-- 01 COMO EMPEZO -->
+<section class="section wrap">
+  <div class="kicker">01</div>
+  <h2>La revista dejó de imprimirse.</h2>
+  <p class="lead">GEFAO lleva desde 1996 publicando una revista bimestral sobre historia antigua de México, historia universal, política y cultura: 204 ediciones y lectores en México y Estados Unidos.</p>
+  <p>La revista pasó a ser 100% digital. De un WordPress con <strong>diez opciones de menú</strong> y submenús —Podcast, Blog, Tienda, Suscripción, Club— donde la edición más reciente competía por atención con todo lo demás.</p>
+  <p>Llegué al proyecto con una ventaja poco común: <strong>también diseño la revista</strong>, la portada y los interiores de cada edición. Conocía el producto desde adentro: cómo se arma un número, qué temas lo encabezan y cómo se jerarquiza una portada. Eso también me ponía una exigencia: el sitio tenía que vender bien un objeto que yo mismo había diseñado.</p>
+  <div class="figure ph-figura ph" data-file="img/008_revista.jpg"><img src="img/002_revista.jpg" alt="Portada e interiores de la revista GEFAO" loading="lazy" onerror="this.parentNode.classList.add('falta');this.remove()"></div>
+  <p class="figure-cap" style="margin-top:-1.75rem;margin-bottom:2rem">Portada e interiores de la revista GEFAO.</p>
+  <p>El encargo inicial sonaba a ajuste visual: cambiar tipografía, colores y algunos textos. Pero al revisar el sitio con la mirada de alguien que quiere leer la edición de este bimestre, entendí que el problema no era estético. El sitio había sido diseñado para presentar una editorial, no para vender ni entregar un producto digital.</p>
+  <div class="section-shot ph" data-file="img/002_sitio-anterior.jpg"><img src="img/003_gefaoanterior.jpg" alt="Sitio anterior de la revista GEFAO con menú de diez opciones" loading="lazy" onerror="this.parentNode.classList.add('falta');this.remove()"></div>
+  <p class="figure-cap" style="margin-top:-2rem">Estado anterior: menú de diez opciones, filtros de revistas detenidos en 2022 y un enlace a “Libros” que llevaba al footer.</p>
+</section>
+
+<!-- 02 HALLAZGO -->
+<section class="section section-alt">
+  <div class="wrap">
+    <div class="kicker">02</div>
+    <h2>Faltaba un lugar donde comprar y leer</h2>
+    <p class="lead">Antes de proponer una sola pantalla, hice una auditoría del sitio anterior y me hice tres preguntas.</p>
+    <div class="qa">
+      <div class="qa-q">¿Qué hace hoy alguien que quiere la edición de este bimestre?</div>
+      <div class="qa-a">Tiene que encontrarla entre diez opciones de menú, en un catálogo que mostraba hasta 2022, junto a un formulario que le ofrece envío a domicilio.</div>
+    </div>
+    <div class="qa">
+      <div class="qa-q">Después de pagar, ¿dónde vive lo que compró?</div>
+      <div class="qa-a">En impreso, la revista llegaba a su casa. En digital, no había ningún lugar al cual volver para leerla. La compra terminaba en un recibo, no en la lectura.</div>
+    </div>
+    <div class="qa">
+      <div class="qa-q">¿Quién sube cada edición nueva al sitio?</div>
+      <div class="qa-a">El equipo de GEFAO, cada dos meses y sin un programador de planta. Si agregar una revista era complicado, el sitio dejaría de actualizarse otra vez: el catálogo anterior solo mostraba ediciones hasta 2022.</div>
+    </div>
+    <p style="margin-top:2.5rem"><strong>El hallazgo que terminó de definir el proyecto:</strong> el análisis reveló tres perfiles cuyas necesidades debía resolver el rediseño. Además del lector que compra, estaba el equipo que publica. Si no diseñaba también para ellos, el rediseño iba a envejecer igual que el anterior.</p>
+
+    <div class="audiencia-grid tres">
+      <div class="audiencia-card">
+        <div class="audiencia-tag">Lector habitual · conoce la revista</div>
+        <h3>Necesita</h3>
+        <ul class="audiencia-list">
+          <li>Encontrar la edición nueva en segundos</li>
+          <li>Pagar sin crear una cuenta antes de tiempo</li>
+          <li>Volver a leer lo que ya compró</li>
+        </ul>
+      </div>
+      <div class="audiencia-card">
+        <div class="audiencia-tag">Lector nuevo · llega por un tema</div>
+        <h3>Necesita</h3>
+        <ul class="audiencia-list">
+          <li>Saber quién es GEFAO y si es confiable</li>
+          <li>Ver qué temas trae cada edición</li>
+          <li>Entender que es digital y cuánto cuesta</li>
+        </ul>
+      </div>
+      <div class="audiencia-card destacada">
+        <div class="audiencia-tag">Equipo editorial · publica cada bimestre</div>
+        <h3>Necesita</h3>
+        <ul class="audiencia-list">
+          <li>Subir una edición sin tocar el diseño</li>
+          <li>Que “Nuevo” y los años se actualicen solos</li>
+          <li>No depender de un desarrollador</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 03 ARQUITECTURA -->
+<section class="section wrap-wide">
+  <div class="wrap">
+    <div class="kicker">03</div>
+    <h2>De una vitrina a una tienda</h2>
+    <p class="lead">Priorizar fue la decisión de diseño más importante del proyecto.</p>
+    <p>Podcast, Blog, Suscripción, Club y Talleres siguen siendo parte de GEFAO y podrán volver al sitio en una siguiente etapa. Para esta primera versión definí una sola prioridad: presentar la revista en su nuevo formato digital y la tienda donde se compra. Por eso reorganicé el menú alrededor de dos catálogos y de dos lugares que antes no existían: <strong>Mi cuenta</strong> y el <strong>Carrito</strong>.</p>
+  </div>
+  <div class="wrap">
+    <div class="wf-compare">
+      <div class="wf-card before">
+        <div class="wf-card-label">Antes — 10 opciones</div>
+        <div class="wf-body">
+          <ul class="menu-list">
+            <li>Inicio</li><li>Nosotros</li><li>Revista</li><li>Libros <small>roto</small></li>
+            <li class="fuera">Podcast <small>siguiente etapa</small></li><li class="fuera">Tienda <small>se integra</small></li>
+            <li class="fuera">Suscríbete <small>siguiente etapa</small></li><li class="fuera">Blog <small>siguiente etapa</small></li>
+            <li class="fuera">Talleres <small>siguiente etapa</small></li><li>Contacto</li>
+          </ul>
+        </div>
+      </div>
+      <div class="wf-card after">
+        <div class="wf-card-label">Después — 6 opciones</div>
+        <div class="wf-body">
+          <ul class="menu-list">
+            <li>Inicio</li><li>Quiénes somos</li>
+            <li class="nuevo">Revistas <small>catálogo</small></li><li class="nuevo">Libros <small>catálogo</small></li>
+            <li>Contacto</li>
+            <li class="nuevo">Mi cuenta · Carrito <small>nuevo</small></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="diagram-wrap">
+    <svg viewBox="0 0 1000 540" xmlns="http://www.w3.org/2000/svg" font-family="Roboto,Inter,sans-serif" role="img" aria-label="Mapa del sitio de GEFAO: cuatro páginas alimentadas por catalogo.js">
+<rect x="380" y="10" width="240" height="54" rx="6" fill="#000000"/>
+<text x="500" y="43" text-anchor="middle" font-size="14" font-weight="700" fill="#fff">Casa Editorial GEFAO</text>
+<line x1="500" y1="64" x2="500" y2="92" stroke="#c9c4b8" stroke-width="1.5"/>
+<line x1="125" y1="92" x2="875" y2="92" stroke="#c9c4b8" stroke-width="1.5"/>
+<line x1="125" y1="92" x2="125" y2="112" stroke="#c9c4b8" stroke-width="1.5"/>
+<rect x="20" y="112" width="210" height="58" rx="6" fill="#C49A2A"/>
+<text x="125" y="136" text-anchor="middle" font-size="10.5" letter-spacing="1" fill="rgba(0,0,0,.6)">index.html</text>
+<text x="125" y="156" text-anchor="middle" font-size="13" font-weight="700" fill="#000000">Inicio</text>
+<line x1="125" y1="170" x2="125" y2="416" stroke="#c9c4b8" stroke-width="1.5"/>
+<rect x="27" y="196" width="196" height="34" rx="5" fill="#fff" stroke="#d8d3c6" stroke-width="1.2"/>
+<text x="125" y="217" text-anchor="middle" font-size="11" fill="#1a1a18">Hero</text>
+<rect x="27" y="240" width="196" height="34" rx="5" fill="#fff" stroke="#d8d3c6" stroke-width="1.2"/>
+<text x="125" y="261" text-anchor="middle" font-size="11" fill="#1a1a18">Quiénes somos</text>
+<rect x="27" y="284" width="196" height="34" rx="5" fill="#fff" stroke="#d8d3c6" stroke-width="1.2"/>
+<text x="125" y="305" text-anchor="middle" font-size="11" fill="#1a1a18">Colecciones</text>
+<rect x="27" y="328" width="196" height="34" rx="5" fill="#fff" stroke="#d8d3c6" stroke-width="1.2"/>
+<text x="125" y="349" text-anchor="middle" font-size="11" fill="#1a1a18">Revistas · filtro por año</text>
+<rect x="27" y="372" width="196" height="34" rx="5" fill="#fff" stroke="#d8d3c6" stroke-width="1.2"/>
+<text x="125" y="393" text-anchor="middle" font-size="11" fill="#1a1a18">Libros · 11 títulos</text>
+<rect x="27" y="416" width="196" height="34" rx="5" fill="#fff" stroke="#d8d3c6" stroke-width="1.2"/>
+<text x="125" y="437" text-anchor="middle" font-size="11" fill="#1a1a18">Contacto · registro</text>
+<line x1="125" y1="450" x2="125" y2="478" stroke="#21AEAF" stroke-width="1.5" stroke-dasharray="4 4"/>
+<line x1="375" y1="92" x2="375" y2="112" stroke="#c9c4b8" stroke-width="1.5"/>
+<rect x="270" y="112" width="210" height="58" rx="6" fill="#414042"/>
+<text x="375" y="136" text-anchor="middle" font-size="10.5" letter-spacing="1" fill="#d9d9d9">detalle.html</text>
+<text x="375" y="156" text-anchor="middle" font-size="13" font-weight="700" fill="#fff">Plantilla única</text>
+<line x1="375" y1="170" x2="375" y2="284" stroke="#c9c4b8" stroke-width="1.5"/>
+<rect x="277" y="196" width="196" height="34" rx="5" fill="#fff" stroke="#d8d3c6" stroke-width="1.2"/>
+<text x="375" y="217" text-anchor="middle" font-size="11" fill="#1a1a18">Detalle de revista</text>
+<rect x="277" y="240" width="196" height="34" rx="5" fill="#fff" stroke="#d8d3c6" stroke-width="1.2"/>
+<text x="375" y="261" text-anchor="middle" font-size="11" fill="#1a1a18">Detalle de libro</text>
+<rect x="277" y="284" width="196" height="34" rx="5" fill="#fff" stroke="#d8d3c6" stroke-width="1.2"/>
+<text x="375" y="305" text-anchor="middle" font-size="11" fill="#1a1a18">Bloque variable: temas o sinopsis</text>
+<line x1="375" y1="318" x2="375" y2="478" stroke="#21AEAF" stroke-width="1.5" stroke-dasharray="4 4"/>
+<line x1="625" y1="92" x2="625" y2="112" stroke="#c9c4b8" stroke-width="1.5"/>
+<rect x="520" y="112" width="210" height="58" rx="6" fill="#414042"/>
+<text x="625" y="136" text-anchor="middle" font-size="10.5" letter-spacing="1" fill="#d9d9d9">carrito.html</text>
+<text x="625" y="156" text-anchor="middle" font-size="13" font-weight="700" fill="#fff">Carrito</text>
+<line x1="625" y1="170" x2="625" y2="284" stroke="#c9c4b8" stroke-width="1.5"/>
+<rect x="527" y="196" width="196" height="34" rx="5" fill="#fff" stroke="#d8d3c6" stroke-width="1.2"/>
+<text x="625" y="217" text-anchor="middle" font-size="11" fill="#1a1a18">Productos</text>
+<rect x="527" y="240" width="196" height="34" rx="5" fill="#fff" stroke="#d8d3c6" stroke-width="1.2"/>
+<text x="625" y="261" text-anchor="middle" font-size="11" fill="#1a1a18">Totales · IVA incluido</text>
+<rect x="527" y="284" width="196" height="34" rx="5" fill="#fff" stroke="#d8d3c6" stroke-width="1.2"/>
+<text x="625" y="305" text-anchor="middle" font-size="11" fill="#1a1a18">Pago · PayPal</text>
+<line x1="625" y1="318" x2="625" y2="478" stroke="#21AEAF" stroke-width="1.5" stroke-dasharray="4 4"/>
+<line x1="875" y1="92" x2="875" y2="112" stroke="#c9c4b8" stroke-width="1.5"/>
+<rect x="770" y="112" width="210" height="58" rx="6" fill="#414042"/>
+<text x="875" y="136" text-anchor="middle" font-size="10.5" letter-spacing="1" fill="#d9d9d9">cuenta.html</text>
+<text x="875" y="156" text-anchor="middle" font-size="13" font-weight="700" fill="#fff">Mi cuenta</text>
+<line x1="875" y1="170" x2="875" y2="284" stroke="#c9c4b8" stroke-width="1.5"/>
+<rect x="777" y="196" width="196" height="34" rx="5" fill="#fff" stroke="#d8d3c6" stroke-width="1.2"/>
+<text x="875" y="217" text-anchor="middle" font-size="11" fill="#1a1a18">Iniciar sesión · Crear cuenta</text>
+<rect x="777" y="240" width="196" height="34" rx="5" fill="#fff" stroke="#d8d3c6" stroke-width="1.2"/>
+<text x="875" y="261" text-anchor="middle" font-size="11" fill="#1a1a18">Mis compras</text>
+<rect x="777" y="284" width="196" height="34" rx="5" fill="#fff" stroke="#d8d3c6" stroke-width="1.2"/>
+<text x="875" y="305" text-anchor="middle" font-size="11" fill="#1a1a18">Visor de lectura · PDF</text>
+<line x1="875" y1="318" x2="875" y2="478" stroke="#21AEAF" stroke-width="1.5" stroke-dasharray="4 4"/>
+<rect x="20" y="478" width="960" height="48" rx="6" fill="#eaf7f7" stroke="#21AEAF" stroke-width="1.5"/>
+<text x="500" y="507" text-anchor="middle" font-size="13" fill="#0d5d5e"><tspan font-weight="700">catalogo.js — una sola fuente de datos:</tspan> Revistas · libros · carrito · sesión · compras</text>
+</svg>
+  </div>
+  <div class="wrap">
+    <p>Dentro del home, el orden responde a las preguntas del lector nuevo: <em>¿quién es GEFAO? → ¿qué publica? → ¿qué edición me interesa? → ¿cómo me mantengo al tanto?</em> Por eso <strong>Quiénes somos va antes que los catálogos:</strong> La trayectoria editorial y el número de ediciones publicadas aportan contexto y credibilidad antes de que un nuevo lector decida comprar.</p>
+    <p>En el catálogo de revistas, en lugar de una vista “Todos” con las portadas, el sitio <strong>abre en el año en curso</strong> y se navega por año. Como la revista es bimestral, cada año tiene a lo mucho seis ediciones: dos filas que se recorren de un vistazo y que hacen visible el ritmo de publicación.</p>
+  </div>
+</section>
+
+<!-- 04 WIREFRAMES -->
+<section class="section section-alt">
+  <div class="wrap-wide">
+    <div class="wrap">
+      <div class="kicker">04</div>
+      <h2>Una sola plantilla para todas las publicaciones</h2>
+      <p class="lead">Diseñé una plantilla de detalle que cambia un solo bloque.</p>
+      <p>Los wireframes, antes del color, me permitieron entender cómo debían operar los estados y las pantallas del carrito, y definir la posición de los principales botones de llamado a la acción (CTA). Si la publicación no está en el carrito, el lector ve “Agregar al carrito”; si ya la agregó, “Ya está en tu carrito”; si ya la compró, “Ya es tuya · Leer”. En esta etapa el objetivo no era resolver la estética, sino entender cómo debía funcionar cada pantalla y cómo se relacionaban unas con otras.</p>
+    </div>
+    <div class="diagram-wrap">
+      <svg viewBox="0 0 1000 515" xmlns="http://www.w3.org/2000/svg" font-family="Roboto,Inter,sans-serif" role="img" aria-label="Wireframes de baja resolución de las cuatro páginas de GEFAO">
+<text x="0" y="22" font-size="11" font-weight="700" letter-spacing="1.5" fill="#7a7a7a">HOME</text><rect x="0" y="34" width="230" height="476" rx="8" fill="#fff" stroke="#b5b5b5" stroke-width="1.5"/><rect x="10" y="44" width="210" height="14" rx="3" fill="#e8e8e8"/><circle cx="196" cy="51" r="4" fill="#c6c6c6"/><circle cx="210" cy="51" r="4" fill="#1a1a18" opacity=".7"/><rect x="10" y="66" width="210" height="66" rx="3" fill="#2b2b2b"/><text x="115" y="92" text-anchor="middle" font-size="9" font-weight="700" fill="#fff">HERO</text><rect x="85" y="104" width="60" height="12" rx="3" fill="#a6a6a6"/><rect x="10" y="140" width="80" height="10" rx="3" fill="#e8e8e8"/><rect x="10" y="154" width="60" height="10" rx="3" fill="#e8e8e8"/><rect x="100" y="140" width="120" height="34" rx="3" fill="#f2f2f2"/><text x="10" y="186" text-anchor="start" font-size="8.5" font-weight="400" fill="#7a7a7a">Quiénes somos</text><rect x="10" y="192" width="66" height="28" rx="3" fill="#f2f2f2"/><rect x="82" y="192" width="66" height="28" rx="3" fill="#f2f2f2"/><rect x="154" y="192" width="66" height="28" rx="3" fill="#f2f2f2"/><rect x="10" y="228" width="210" height="44" rx="3" fill="#2b2b2b"/><rect x="18" y="236" width="94" height="28" rx="3" fill="#4a4a4a"/><rect x="118" y="236" width="94" height="28" rx="3" fill="#4a4a4a"/><text x="10" y="286" text-anchor="start" font-size="8.5" font-weight="400" fill="#7a7a7a">Revistas</text><rect x="10" y="291" width="26" height="9" rx="2" fill="#000000"/><rect x="40" y="291" width="26" height="9" rx="2" fill="#e8e8e8"/><rect x="70" y="291" width="26" height="9" rx="2" fill="#e8e8e8"/><rect x="100" y="291" width="26" height="9" rx="2" fill="#e8e8e8"/><rect x="130" y="291" width="26" height="9" rx="2" fill="#e8e8e8"/><rect x="10" y="306" width="66" height="46" rx="3" fill="#e8e8e8"/><rect x="82" y="306" width="66" height="46" rx="3" fill="#e8e8e8"/><rect x="154" y="306" width="66" height="46" rx="3" fill="#e8e8e8"/><rect x="10" y="358" width="66" height="46" rx="3" fill="#e8e8e8"/><rect x="82" y="358" width="66" height="46" rx="3" fill="#e8e8e8"/><rect x="154" y="358" width="66" height="46" rx="3" fill="#e8e8e8"/><rect x="10" y="306" width="22" height="6" rx="1" fill="#a6a6a6"/><text x="10" y="422" text-anchor="start" font-size="8.5" font-weight="400" fill="#7a7a7a">Libros</text><rect x="10" y="428" width="66" height="22" rx="3" fill="#e8e8e8"/><rect x="82" y="428" width="66" height="22" rx="3" fill="#e8e8e8"/><rect x="154" y="428" width="66" height="22" rx="3" fill="#e8e8e8"/><rect x="10" y="456" width="210" height="26" rx="3" fill="#2b2b2b"/><rect x="120" y="462" width="92" height="14" rx="3" fill="#a6a6a6"/><rect x="10" y="486" width="210" height="16" rx="3" fill="#d4d4d4"/>
+<text x="256" y="22" font-size="11" font-weight="700" letter-spacing="1.5" fill="#7a7a7a">DETALLE</text><rect x="256" y="34" width="230" height="476" rx="8" fill="#fff" stroke="#b5b5b5" stroke-width="1.5"/><rect x="266" y="44" width="210" height="14" rx="3" fill="#e8e8e8"/><circle cx="452" cy="51" r="4" fill="#c6c6c6"/><circle cx="466" cy="51" r="4" fill="#1a1a18" opacity=".7"/><rect x="266" y="66" width="120" height="6" rx="3" fill="#e8e8e8"/><rect x="266" y="82" width="86" height="118" rx="3" fill="#e8e8e8"/><text x="309" y="145" text-anchor="middle" font-size="8" font-weight="400" fill="#7a7a7a">PORTADA</text><rect x="362" y="84" width="114" height="12" rx="3" fill="#c6c6c6"/><rect x="362" y="101" width="70" height="8" rx="3" fill="#e8e8e8"/><rect x="362" y="118" width="80" height="16" rx="3" fill="#c6c6c6"/><rect x="362" y="142" width="90" height="16" rx="3" fill="#1a1a18"/><rect x="362" y="164" width="54" height="14" rx="3" fill="#000000"/><rect x="420" y="164" width="54" height="14" rx="3" fill="#d0d0d0"/><line x1="362" y1="190" x2="476" y2="190" stroke="#1a1a18" stroke-width="1.5"/><rect x="362" y="198" width="110" height="6" rx="3" fill="#e8e8e8"/><rect x="362" y="210" width="92" height="6" rx="3" fill="#e8e8e8"/><rect x="362" y="222" width="74" height="6" rx="3" fill="#e8e8e8"/><rect x="362" y="234" width="110" height="6" rx="3" fill="#e8e8e8"/><rect x="362" y="246" width="92" height="6" rx="3" fill="#e8e8e8"/><rect x="362" y="258" width="74" height="6" rx="3" fill="#e8e8e8"/><text x="266" y="296" text-anchor="start" font-size="9" font-weight="700" fill="#1a1a18">Bloque variable</text><text x="266" y="312" text-anchor="start" font-size="8.5" font-weight="400" fill="#7a7a7a">Revista → temas</text><text x="266" y="326" text-anchor="start" font-size="8.5" font-weight="400" fill="#7a7a7a">Libro → sinopsis</text><rect x="266" y="340" width="210" height="1" rx="3" fill="#e0e0e0"/><text x="266" y="360" text-anchor="start" font-size="9" font-weight="700" fill="#1a1a18">Estados del botón</text><rect x="266" y="370" width="150" height="18" rx="3" fill="#1a1a18" stroke="#1a1a18"/><text x="341" y="382" text-anchor="middle" font-size="8.5" font-weight="700" fill="#fff">Agregar al carrito</text><rect x="266" y="396" width="150" height="18" rx="3" fill="#fff" stroke="#000000"/><text x="341" y="408" text-anchor="middle" font-size="8.5" font-weight="700" fill="#000000">Ya está en tu carrito</text><rect x="266" y="422" width="150" height="18" rx="3" fill="#a6a6a6" stroke="#a6a6a6"/><text x="341" y="434" text-anchor="middle" font-size="8.5" font-weight="700" fill="#000000">Ya es tuya · Leer</text><rect x="266" y="486" width="210" height="16" rx="3" fill="#d4d4d4"/>
+<text x="512" y="22" font-size="11" font-weight="700" letter-spacing="1.5" fill="#7a7a7a">CARRITO</text><rect x="512" y="34" width="230" height="476" rx="8" fill="#fff" stroke="#b5b5b5" stroke-width="1.5"/><rect x="522" y="44" width="210" height="14" rx="3" fill="#e8e8e8"/><circle cx="708" cy="51" r="4" fill="#c6c6c6"/><circle cx="722" cy="51" r="4" fill="#1a1a18" opacity=".7"/><rect x="522" y="66" width="80" height="6" rx="3" fill="#e8e8e8"/><rect x="522" y="84" width="116" height="8" rx="3" fill="#c6c6c6"/><rect x="648" y="84" width="84" height="8" rx="3" fill="#c6c6c6"/><rect x="522" y="102" width="34" height="46" rx="3" fill="#e8e8e8"/><rect x="562" y="104" width="60" height="8" rx="3" fill="#1a1a18"/><rect x="562" y="116" width="40" height="6" rx="3" fill="#e8e8e8"/><circle cx="570" cy="140" r="7" fill="#fff" stroke="#7a7a7a"/><rect x="622" y="104" width="16" height="6" rx="3" fill="#e8e8e8"/><rect x="522" y="168" width="34" height="46" rx="3" fill="#e8e8e8"/><rect x="562" y="170" width="60" height="8" rx="3" fill="#1a1a18"/><rect x="562" y="182" width="40" height="6" rx="3" fill="#e8e8e8"/><circle cx="570" cy="206" r="7" fill="#fff" stroke="#7a7a7a"/><rect x="622" y="170" width="16" height="6" rx="3" fill="#e8e8e8"/><rect x="648" y="104" width="84" height="8" rx="3" fill="#e8e8e8"/><rect x="648" y="124" width="84" height="8" rx="3" fill="#e8e8e8"/><rect x="648" y="144" width="84" height="8" rx="3" fill="#c6c6c6"/><rect x="648" y="170" width="84" height="16" rx="3" fill="#000000"/><rect x="648" y="192" width="84" height="16" rx="3" fill="#d0d0d0"/><text x="522" y="268" text-anchor="start" font-size="9" font-weight="700" fill="#1a1a18">Sin selector de cantidad</text><text x="522" y="284" text-anchor="start" font-size="8.5" font-weight="400" fill="#7a7a7a">Una compra = un acceso</text><text x="522" y="306" text-anchor="start" font-size="9" font-weight="700" fill="#1a1a18">IVA incluido y desglosado</text><text x="522" y="322" text-anchor="start" font-size="8.5" font-weight="400" fill="#7a7a7a">Subtotal + IVA = precio de catálogo</text><text x="522" y="344" text-anchor="start" font-size="9" font-weight="700" fill="#1a1a18">Botón circular de borrar</text><text x="522" y="360" text-anchor="start" font-size="8.5" font-weight="400" fill="#7a7a7a">+ Deshacer en el aviso</text><rect x="522" y="486" width="210" height="16" rx="3" fill="#d4d4d4"/>
+<text x="768" y="22" font-size="11" font-weight="700" letter-spacing="1.5" fill="#7a7a7a">MI CUENTA</text><rect x="768" y="34" width="230" height="476" rx="8" fill="#fff" stroke="#b5b5b5" stroke-width="1.5"/><rect x="778" y="44" width="210" height="14" rx="3" fill="#e8e8e8"/><circle cx="964" cy="51" r="4" fill="#c6c6c6"/><circle cx="978" cy="51" r="4" fill="#1a1a18" opacity=".7"/><rect x="778" y="66" width="80" height="6" rx="3" fill="#e8e8e8"/><rect x="778" y="84" width="90" height="14" rx="3" fill="#c6c6c6"/><rect x="778" y="104" width="70" height="6" rx="3" fill="#e8e8e8"/><rect x="778" y="122" width="50" height="6" rx="3" fill="#e8e8e8"/><line x1="834" y1="125" x2="988" y2="125" stroke="#1a1a18" stroke-width="1.5"/><rect x="778" y="136" width="26" height="36" rx="3" fill="#e8e8e8"/><rect x="810" y="140" width="80" height="8" rx="3" fill="#c6c6c6"/><rect x="810" y="152" width="60" height="6" rx="3" fill="#e8e8e8"/><rect x="904" y="146" width="44" height="14" rx="3" fill="#a6a6a6"/><rect x="952" y="146" width="36" height="14" rx="3" fill="#fff" stroke="#000000"/><rect x="778" y="184" width="26" height="36" rx="3" fill="#e8e8e8"/><rect x="810" y="188" width="80" height="8" rx="3" fill="#c6c6c6"/><rect x="810" y="200" width="60" height="6" rx="3" fill="#e8e8e8"/><rect x="904" y="194" width="44" height="14" rx="3" fill="#a6a6a6"/><rect x="952" y="194" width="36" height="14" rx="3" fill="#fff" stroke="#000000"/><rect x="778" y="232" width="26" height="36" rx="3" fill="#e8e8e8"/><rect x="810" y="236" width="80" height="8" rx="3" fill="#c6c6c6"/><rect x="810" y="248" width="60" height="6" rx="3" fill="#e8e8e8"/><rect x="904" y="242" width="44" height="14" rx="3" fill="#a6a6a6"/><rect x="952" y="242" width="36" height="14" rx="3" fill="#fff" stroke="#000000"/><rect x="778" y="290" width="210" height="150" rx="6" fill="rgba(0,0,0,.55)"/><rect x="828" y="302" width="110" height="112" rx="2" fill="#fff"/><rect x="840" y="318" width="86" height="6" rx="3" fill="#e8e8e8"/><rect x="840" y="332" width="66" height="6" rx="3" fill="#e8e8e8"/><rect x="840" y="346" width="86" height="6" rx="3" fill="#e8e8e8"/><rect x="840" y="360" width="66" height="6" rx="3" fill="#e8e8e8"/><rect x="840" y="374" width="86" height="6" rx="3" fill="#e8e8e8"/><rect x="840" y="388" width="66" height="6" rx="3" fill="#e8e8e8"/><text x="883" y="430" text-anchor="middle" font-size="8.5" font-weight="700" fill="#fff">Visor de lectura</text><rect x="778" y="486" width="210" height="16" rx="3" fill="#d4d4d4"/>
+</svg>
+    </div>
+    <div class="wrap">
+      <p class="figure-cap">Wireframes de baja resolución de las cuatro páginas: jerarquía de contenido y estados antes de trabajar la interfaz visual.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 05 SISTEMA VISUAL -->
+<section class="section wrap">
+  <div class="kicker">05</div>
+  <h2>Respeté los tokens de la marca y agregué uno solo</h2>
+  <p class="lead">GEFAO ya tenía un sistema definido en Figma: Patua One para títulos, Roboto para texto y una paleta de seis colores. Lo respeté por completo, con una excepción documentada.</p>
+  <p>El dorado #C49A2A es el color más reconocible de la marca, pero sobre fondo blanco tiene un contraste de 2.6:1. Funciona en títulos grandes y no alcanza el nivel AA en texto pequeño ni en botones de contorno. En lugar de oscurecer el dorado de la marca, agregué un séptimo token, <strong>dorado oscuro #8A6A12</strong> (5.1:1), solo para texto chico sobre blanco. Así la marca no se toca y el sitio sigue siendo legible.</p>
+  <div class="contraste">
+    <div class="contraste-card">
+      <div class="contraste-muestra" style="color:#C49A2A">Aa</div>
+      <div><span class="estado no">2.6 : 1 · no pasa AA</span><h3>#C49A2A sobre blanco</h3><p>Se queda en títulos grandes y en fondos negros, donde llega a 8:1.</p></div>
+    </div>
+    <div class="contraste-card">
+      <div class="contraste-muestra" style="color:#8A6A12">Aa</div>
+      <div><span class="estado si">5.1 : 1 · pasa AA</span><h3>#8A6A12 · token nuevo</h3><p>Texto pequeño y contornos sobre fondo blanco.</p></div>
+    </div>
+  </div>
+  <p>El resto del sistema lo definí asignando <strong>un solo rol a cada color.</strong> Reservé el rojo para las acciones de compra, de modo que su función fuera consistente a lo largo de la experiencia. El turquesa, que no tenía uso asignado, se volvió el color de las líneas, los íconos y las confirmaciones. Y como Patua One no tiene cursiva, decidí que el sistema completo funcionara sin cursivas: “conocimiento” se distingue en el Hero solo con el dorado.</p>
+  <div class="diagram-wrap">
+    <svg viewBox="0 0 1000 520" xmlns="http://www.w3.org/2000/svg" font-family="Roboto,Inter,sans-serif" role="img" aria-label="Sistema visual de GEFAO: tipografía, paleta y componentes">
+<text x="0" y="24" font-size="11" font-weight="700" letter-spacing="1.5" fill="#9a9484">TIPOGRAFÍA</text>
+<text x="0" y="72" font-family="'Patua One',serif" font-size="38" fill="#000">Patua One — <tspan fill="#C49A2A">títulos</tspan></text>
+<text x="0" y="102" font-size="16" font-weight="700" fill="#414042">Roboto Bold 700 — subtítulos y botones</text>
+<text x="0" y="126" font-size="14" fill="#414042">Roboto Regular 400 — párrafos y texto de apoyo · sin cursivas en todo el sistema</text>
+<line x1="0" y1="150" x2="1000" y2="150" stroke="#e4e0d8"/>
+<text x="0" y="182" font-size="11" font-weight="700" letter-spacing="1.5" fill="#9a9484">PALETA Y ROLES</text>
+<rect x="0" y="196" width="130" height="56" rx="6" fill="#000000" stroke="#e4e0d8"/>
+<text x="0" y="272" font-size="11.5" font-weight="700" fill="#1a1a18">Negro</text>
+<text x="0" y="287" font-size="10" fill="#9a9484">#000000 · Fondos</text>
+<rect x="145" y="196" width="130" height="56" rx="6" fill="#414042" stroke="#e4e0d8"/>
+<text x="145" y="272" font-size="11.5" font-weight="700" fill="#1a1a18">Gris</text>
+<text x="145" y="287" font-size="10" fill="#9a9484">#414042 · Texto</text>
+<rect x="290" y="196" width="130" height="56" rx="6" fill="#C49A2A" stroke="#e4e0d8"/>
+<text x="290" y="272" font-size="11.5" font-weight="700" fill="#1a1a18">Dorado</text>
+<text x="290" y="287" font-size="10" fill="#9a9484">#C49A2A · Títulos</text>
+<rect x="435" y="196" width="130" height="56" rx="6" fill="#8A6A12" stroke="#e4e0d8"/>
+<text x="435" y="272" font-size="11.5" font-weight="700" fill="#1a1a18">Dorado oscuro</text>
+<text x="435" y="287" font-size="10" fill="#9a9484">#8A6A12 · AA 5.1:1</text>
+<rect x="580" y="196" width="130" height="56" rx="6" fill="#C22D24" stroke="#e4e0d8"/>
+<text x="580" y="272" font-size="11.5" font-weight="700" fill="#1a1a18">Rojo</text>
+<text x="580" y="287" font-size="10" fill="#9a9484">#C22D24 · Comprar</text>
+<rect x="725" y="196" width="130" height="56" rx="6" fill="#21AEAF" stroke="#e4e0d8"/>
+<text x="725" y="272" font-size="11.5" font-weight="700" fill="#1a1a18">Turquesa</text>
+<text x="725" y="287" font-size="10" fill="#9a9484">#21AEAF · Líneas</text>
+<rect x="870" y="196" width="130" height="56" rx="6" fill="#FFFFFF" stroke="#e4e0d8"/>
+<text x="870" y="272" font-size="11.5" font-weight="700" fill="#1a1a18">Blanco</text>
+<text x="870" y="287" font-size="10" fill="#9a9484">#FFFFFF · Superficie</text>
+<rect x="427" y="188" width="150" height="108" rx="8" fill="none" stroke="#8A6A12" stroke-width="1.5" stroke-dasharray="4 3"/>
+<line x1="0" y1="312" x2="1000" y2="312" stroke="#e4e0d8"/>
+<text x="0" y="344" font-size="11" font-weight="700" letter-spacing="1.5" fill="#9a9484">COMPONENTES</text>
+<rect x="0" y="358" width="160" height="40" rx="6" fill="#C22D24"/>
+<text x="80.0" y="383" text-anchor="middle" font-size="11" letter-spacing="1" font-weight="700" fill="#fff">AGREGAR AL CARRITO</text>
+<rect x="172" y="358" width="130" height="40" rx="6" fill="#C49A2A"/>
+<text x="237.0" y="383" text-anchor="middle" font-size="11" letter-spacing="1" font-weight="700" fill="#000">VER REVISTAS →</text>
+<rect x="314" y="358" width="150" height="40" rx="6" fill="#000000"/>
+<text x="389.0" y="383" text-anchor="middle" font-size="11" letter-spacing="1" font-weight="700" fill="#fff">PROCEDER AL PAGO</text>
+<rect x="476" y="358" width="110" height="40" rx="6" fill="#FFC439"/>
+<text x="531.0" y="383" text-anchor="middle" font-style="italic" font-size="14" font-weight="700" fill="#003087">PayPal</text>
+<rect x="602" y="358" width="64" height="40" rx="6" fill="#000000"/><text x="634" y="383" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">2026</text>
+<rect x="674" y="358" width="64" height="40" rx="6" fill="#fff" stroke="#000000"/><text x="706" y="383" text-anchor="middle" font-size="11" font-weight="700" fill="#000">2025</text>
+<rect x="760" y="352" width="62" height="20" rx="0" fill="#C49A2A"/><text x="791" y="366" text-anchor="middle" font-size="9.5" font-weight="700" letter-spacing="1" fill="#000">NUEVO</text>
+<rect x="760" y="372" width="140" height="26" fill="#fff" stroke="#C49A2A" stroke-width="1.5"/><text x="770" y="389" font-size="10" fill="#414042">Pestaña sobre la tarjeta</text>
+<rect x="0" y="414" width="300" height="38" rx="6" fill="#21AEAF"/><text x="18" y="438" font-size="12" fill="#000">✓  Agregado al carrito · Ver carrito</text>
+<circle cx="332" cy="433" r="18" fill="#fff" stroke="#8A877F"/><path d="M325 427h14M330 427v-3h4v3M326.5 427l1 12h9l1-12" fill="none" stroke="#000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="362" y="430" font-size="11" fill="#414042">Borrar · 36 px</text><text x="362" y="445" font-size="10" fill="#9a9484">hover en rojo</text>
+<line x1="470" y1="433" x2="560" y2="433" stroke="#21AEAF" stroke-width="2"/><text x="572" y="437" font-size="11" fill="#414042">Línea de sección · turquesa</text>
+<line x1="0" y1="474" x2="1000" y2="474" stroke="#e4e0d8"/>
+<text x="0" y="504" font-size="11" font-weight="700" letter-spacing="1.5" fill="#9a9484">PATRÓN DE COMPOSICIÓN</text>
+<text x="230" y="504" font-size="11.5" fill="#5c5850">Etiqueta + línea turquesa + título Patua One → repetido como firma visual en cada sección</text>
+</svg>
+  </div>
+</section>
+
+<!-- 06 FLUJO -->
+<section class="section wrap-wide">
+  <div class="wrap">
+    <div class="kicker">06</div>
+    <h2>La compra no termina al pagar: termina en la página 1</h2>
+    <p class="lead">En una tienda física la venta acaba en la caja. En una revista digital, si el lector no encuentra cómo abrir lo que compró, la experiencia fracasa justo después del cobro.</p>
+  </div>
+  <div class="diagram-wrap">
+    <svg viewBox="0 0 1130 330" xmlns="http://www.w3.org/2000/svg" font-family="Roboto,Inter,sans-serif" role="img" aria-label="Flujo de compra y lectura en diez pasos">
+<defs><marker id="flecha-g" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a9484"/></marker></defs>
+<rect x="10" y="20" width="190" height="104" rx="10" fill="#000000" stroke="#000000" stroke-width="1.5"/>
+<text x="26" y="44" font-size="12" font-weight="700" fill="#8A877F">01</text>
+<text x="105.0" y="76" text-anchor="middle" font-size="16" font-weight="700" fill="#fff">Entra al</text>
+<text x="105.0" y="98" text-anchor="middle" font-size="16" font-weight="700" fill="#fff">home</text>
+<rect x="240" y="20" width="190" height="104" rx="10" fill="#000000" stroke="#000000" stroke-width="1.5"/>
+<text x="256" y="44" font-size="12" font-weight="700" fill="#8A877F">02</text>
+<text x="335.0" y="76" text-anchor="middle" font-size="16" font-weight="700" fill="#fff">Filtra por</text>
+<text x="335.0" y="98" text-anchor="middle" font-size="16" font-weight="700" fill="#fff">año</text>
+<rect x="470" y="20" width="190" height="104" rx="10" fill="#000000" stroke="#000000" stroke-width="1.5"/>
+<text x="486" y="44" font-size="12" font-weight="700" fill="#8A877F">03</text>
+<text x="565.0" y="76" text-anchor="middle" font-size="16" font-weight="700" fill="#fff">Abre el</text>
+<text x="565.0" y="98" text-anchor="middle" font-size="16" font-weight="700" fill="#fff">detalle</text>
+<rect x="700" y="20" width="190" height="104" rx="10" fill="#000000" stroke="#000000" stroke-width="1.5"/>
+<text x="716" y="44" font-size="12" font-weight="700" fill="#8A877F">04</text>
+<text x="795.0" y="76" text-anchor="middle" font-size="16" font-weight="700" fill="#fff">Agrega al</text>
+<text x="795.0" y="98" text-anchor="middle" font-size="16" font-weight="700" fill="#fff">carrito</text>
+<rect x="930" y="20" width="190" height="104" rx="10" fill="#000000" stroke="#000000" stroke-width="1.5"/>
+<text x="946" y="44" font-size="12" font-weight="700" fill="#8A877F">05</text>
+<text x="1025.0" y="76" text-anchor="middle" font-size="16" font-weight="700" fill="#fff">Revisa su</text>
+<text x="1025.0" y="98" text-anchor="middle" font-size="16" font-weight="700" fill="#fff">carrito</text>
+<rect x="930" y="204" width="190" height="104" rx="10" fill="#fff" stroke="#414042" stroke-width="1.5" stroke-dasharray="6 4"/>
+<text x="946" y="228" font-size="12" font-weight="700" fill="#9a9484">06</text>
+<text x="1025.0" y="260" text-anchor="middle" font-size="16" font-weight="700" fill="#1a1a18">Inicia sesión</text>
+<text x="1025.0" y="282" text-anchor="middle" font-size="16" font-weight="700" fill="#1a1a18">solo al pagar</text>
+<rect x="700" y="204" width="190" height="104" rx="10" fill="#000000" stroke="#000000" stroke-width="1.5"/>
+<text x="716" y="228" font-size="12" font-weight="700" fill="#8A877F">07</text>
+<text x="795.0" y="260" text-anchor="middle" font-size="16" font-weight="700" fill="#fff">Vuelve al</text>
+<text x="795.0" y="282" text-anchor="middle" font-size="16" font-weight="700" fill="#fff">carrito</text>
+<rect x="470" y="204" width="190" height="104" rx="10" fill="#000000" stroke="#000000" stroke-width="1.5"/>
+<text x="486" y="228" font-size="12" font-weight="700" fill="#8A877F">08</text>
+<text x="565.0" y="260" text-anchor="middle" font-size="16" font-weight="700" fill="#fff">Paga · PayPal</text>
+<text x="565.0" y="282" text-anchor="middle" font-size="16" font-weight="700" fill="#fff">o tarjeta</text>
+<rect x="240" y="204" width="190" height="104" rx="10" fill="#000000" stroke="#000000" stroke-width="1.5"/>
+<text x="256" y="228" font-size="12" font-weight="700" fill="#8A877F">09</text>
+<text x="335.0" y="260" text-anchor="middle" font-size="16" font-weight="700" fill="#fff">Encuentra</text>
+<text x="335.0" y="282" text-anchor="middle" font-size="16" font-weight="700" fill="#fff">Mis compras</text>
+<rect x="10" y="204" width="190" height="104" rx="10" fill="#C49A2A" stroke="#C49A2A" stroke-width="1.5"/>
+<text x="26" y="228" font-size="12" font-weight="700" fill="rgba(0,0,0,.55)">10</text>
+<text x="105.0" y="260" text-anchor="middle" font-size="16" font-weight="700" fill="#000000">Lee la</text>
+<text x="105.0" y="282" text-anchor="middle" font-size="16" font-weight="700" fill="#000000">revista</text>
+<line x1="204" y1="72.0" x2="234" y2="72.0" stroke="#9a9484" stroke-width="2" marker-end="url(#flecha-g)"/>
+<line x1="434" y1="72.0" x2="464" y2="72.0" stroke="#9a9484" stroke-width="2" marker-end="url(#flecha-g)"/>
+<line x1="664" y1="72.0" x2="694" y2="72.0" stroke="#9a9484" stroke-width="2" marker-end="url(#flecha-g)"/>
+<line x1="894" y1="72.0" x2="924" y2="72.0" stroke="#9a9484" stroke-width="2" marker-end="url(#flecha-g)"/>
+<line x1="1025.0" y1="128" x2="1025.0" y2="198" stroke="#9a9484" stroke-width="2" marker-end="url(#flecha-g)"/>
+<line x1="926" y1="256.0" x2="896" y2="256.0" stroke="#9a9484" stroke-width="2" marker-end="url(#flecha-g)"/>
+<line x1="696" y1="256.0" x2="666" y2="256.0" stroke="#9a9484" stroke-width="2" marker-end="url(#flecha-g)"/>
+<line x1="466" y1="256.0" x2="436" y2="256.0" stroke="#9a9484" stroke-width="2" marker-end="url(#flecha-g)"/>
+<line x1="236" y1="256.0" x2="206" y2="256.0" stroke="#9a9484" stroke-width="2" marker-end="url(#flecha-g)"/>
+<text x="1035.0" y="168" font-size="11" fill="#8A6A12" font-weight="700">sin sesión</text>
+<path d="M975.0 124 C 965.0 184, 645.0 144, 605.0 204" fill="none" stroke="#21AEAF" stroke-width="1.6" stroke-dasharray="5 4" marker-end="url(#flecha-g)"/>
+<text x="775.0" y="186" text-anchor="middle" font-size="11" fill="#0d5d5e" font-weight="700">con sesión: directo al pago</text>
+</svg>
+  </div>
+  <div class="wrap">
+    <p>Diseñé el recorrido completo, de la portada en el catálogo a la primera página leída, y tomé tres decisiones para quitarle fricción:</p>
+    <p><strong>La cuenta se pide solo al pagar.</strong> El lector explora, agrega y revisa su carrito sin registrarse. Si llega al pago sin sesión, lo mando a Mi cuenta con el aviso “Tu carrito se conserva” y, al entrar, regresa directo al carrito.</p>
+    <p><strong>“Opciones de pago” funciona como compra rápida.</strong> Desde el detalle agrega la edición y lleva al carrito en un solo clic, para el lector fiel que ya sabe lo que quiere.</p>
+    <p><strong>Mis compras se convierte en la biblioteca personal del lector.</strong> Cada publicación tiene “Leer en línea” como acción principal y “PDF” como secundaria. Si el lector vuelve al detalle de algo que ya compró, los botones de compra se reemplazan por “Ya es tuya · Leer ahora”.</p>
+  </div>
+</section>
+
+<!-- 07 PUNTO DE INFLEXION -->
+<section class="section section-alt">
+  <div class="wrap">
+    <div class="kicker">07</div>
+    <h2>Una revista digital no se compra como una impresa</h2>
+    <p class="lead">Al pasar de impreso a digital, dos supuestos del modelo de compra anterior dejaron de tener sentido.</p>
+    <p>En el sitio anterior, había un detalle en el <strong>selector de cantidad</strong>. Con la revista impresa tenía lógica comprar tres ejemplares para regalar. Una edición digital, en cambio, se compra una vez: comprarla dos veces no le da nada más al lector y solo genera confusión. Una compra es un acceso.</p>
+    <p>El otro supuesto era el <strong>IVA sumado al final</strong>. El catálogo decía $25 y el carrito cobraba $29. Mostrar un importe diferente al esperado al final del proceso puede generar desconfianza y añadir fricción en un momento crítico de la compra y la Ley Federal de Protección al Consumidor pide mostrar el precio total con impuestos. Cambié el modelo para que el precio de catálogo sea el precio final, con el IVA desglosado.</p>
+
+    <div class="wf-compare">
+      <div class="wf-card before">
+        <div class="wf-card-label">Antes — lógica de impreso</div>
+        <div class="wf-body">
+          <div class="wf-box big">Cantidad  [ − 1 + ]</div>
+          <div class="wf-box">Revista $25.00</div>
+          <div class="wf-box">IVA + $4.00</div>
+          <div class="wf-box">Total estimado $29.00</div>
+        </div>
+      </div>
+      <div class="wf-card after">
+        <div class="wf-card-label">Versión final — lógica digital</div>
+        <div class="wf-body">
+          <div class="wf-box accent">Una compra = un acceso</div>
+          <div class="wf-box">“Ya está en tu carrito” en lugar de sumar otra</div>
+          <div class="wf-box small-row"><div>Subtotal $21.55</div><div>IVA incluido $3.45</div></div>
+          <div class="wf-box">Total estimado $25.00 = precio de catálogo</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="section-shot ph" data-file="img/003_detalle.jpg"><img src="img/005_pagarRevista.jpg" alt="Página de detalle de la No. 204 con el botón Agregar al carrito" loading="lazy" onerror="this.parentNode.classList.add('falta');this.remove()"></div>
+    <p>Fue el punto de inflexión del proyecto. Rediseñar el soporte no bastaba: había que revisar también los supuestos que el formato impreso había dejado en el modelo de compra. A partir de ahí revisé cada pantalla con una sola pregunta: <em>¿esto tiene sentido para algo que no se puede tocar?</em></p>
+  </div>
+</section>
+
+<!-- 10 RESULTADO -->
+<section class="section">
+  <div class="wrap-wide">
+    <div class="wrap">
+      <div class="kicker">08</div>
+      <h2>El resultado: una tienda que también es un librero</h2>
+      <div class="result-grid">
+        <div class="result-item"><div class="result-num">10 → 6</div><div class="result-label">Opciones de menú, con dos catálogos y dos destinos nuevos: Mi cuenta y Carrito</div></div>
+        <div class="result-item"><div class="result-num">1</div><div class="result-label">Plantilla de detalle para 24 revistas y 11 libros</div></div>
+        <div class="result-item"><div class="result-num">1 línea</div><div class="result-label">De código para publicar una edición nueva, sin tocar el diseño</div></div>
+        <div class="result-item"><div class="result-num">$25 = $25</div><div class="result-label">El precio de catálogo es el que se paga: IVA incluido, sin cargos sorpresa</div></div>
+        <div class="result-item"><div class="result-num">AA</div><div class="result-label">Contraste en texto pequeño, con un token nuevo que no altera la marca</div></div>
+        <div class="result-item"><div class="result-num">2</div><div class="result-label">Semanas, de la primera pregunta al sitio entregado</div></div>
+      </div>
+    </div>
+    <div class="shots-grid">
+      <div class="tall figure ph" data-file="img/005_escritorio.jpg"><img src="img/006_escritorio.png" alt="Home completo del nuevo sitio en escritorio" loading="lazy" onerror="this.parentNode.classList.add('falta');this.remove()"></div>
+      <div class="figure ph" data-file="img/006_movil.jpg"><img src="img/007_mobil.png" alt="Detalle de revista en móvil" loading="lazy" onerror="this.parentNode.classList.add('falta');this.remove()"></div>
+    </div>
+    <div class="wrap">
+      <p style="margin-top:2rem">El sitio es responsivo para escritorio, tablet y móvil, y funciona de punta a punta: catálogo, detalle, carrito, inicio de sesión, compra y lectura. El pago, el envío del formulario y el visor son simulados en esta versión, y quedan listos para conectarse a PayPal, a un servicio de correo y al PDF real.</p>
+      <p>El objetivo es que, el día que se publica una nueva edición, el lector habitual pueda encontrarla, comprarla desde su celular y acceder a ella sin tener que recorrer el sitio ni depender de la editorial para recibirla</p>
+    </div>
+  </div>
+</section>
+
+<!-- 11 APRENDIZAJE -->
+<section class="section section-alt">
+  <div class="wrap">
+    <div class="kicker">09</div>
+    <h2>Lo que aprendí</h2>
+    <p>GEFAO me enseñó que <strong>rediseñar no es redecorar</strong>. El encargo empezó como un cambio de tipografía y colores, y la pregunta que lo transformó fue otra: ¿qué trabajo tiene que hacer este sitio ahora que el producto cambió de formato? Cuando la revista dejó de ser papel, el sitio dejó de ser una vitrina y tuvo que convertirse en tienda, buzón y librero.</p>
+    <p>También aprendí que un cambio de formato arrastra supuestos invisibles. La cantidad y el IVA sumado venían de la lógica del impreso y parecían detalles; revisarlos fue el punto de inflexión del proyecto.</p>
+    <p>Descubrí además al <strong>usuario invisible</strong>. El equipo que publica cada bimestre no aparece en ninguna pantalla, pero si el proceso de actualización no responde a las necesidades del equipo editorial, el catálogo corre el riesgo de volver a quedar desactualizado. Diseñar el catálogo como datos fue tan importante como diseñar las tarjetas.</p>
+    <p>Por último, diseñar las dos puntas del producto, la revista y la tienda que la vende, me mostró cómo se afectan entre sí.</p>
+  </div>
+</section>
+
+<footer class="cs-footer wrap">
+  <div class="kicker">Siguiente proyecto</div>
+  <h2>¿Vemos cómo aplico esto mismo a tu producto?</h2>
+  <div class="cs-footer-links">
+    <a href="mailto:fgaboriq73@yahoo.com">Email</a>
+    <a href="https://wa.me/525526668770">WhatsApp</a>
+    <a href="https://linkedin.com/in/francisco-gabriel-riquelme-olmedo">LinkedIn</a>
+  </div>
+</footer>
+
+<script>
+/* Barra de lectura */
+const barra = document.getElementById('progreso');
+addEventListener('scroll', () => {
+  const h = document.documentElement;
+  barra.style.width = (h.scrollTop / (h.scrollHeight - h.clientHeight) * 100) + '%';
+}, { passive: true });
+</script>
+</body>
+</html>
